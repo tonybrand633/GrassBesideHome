@@ -29,7 +29,6 @@ public class PlayeMovement : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector2 dir = new Vector2(h, v);
-
         Vector3 temp = transform.position;
         temp.x += dir.x * Speed * Time.deltaTime;
         temp.y += dir.y * Speed * Time.deltaTime;
