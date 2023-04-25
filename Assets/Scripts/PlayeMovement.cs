@@ -8,6 +8,7 @@ public class PlayeMovement : MonoBehaviour
     public SpriteRenderer sr;
     public float Speed;
     public float _speedAnimator;
+    public bool revertFlip;
 
     // Start is called before the first frame update
     void Start()
@@ -37,13 +38,27 @@ public class PlayeMovement : MonoBehaviour
         _speedAnimator = dir.magnitude * Speed;
 
         //使用SpriteRenderer实现转向
-        if (h < 0)
+        if (revertFlip)
         {
-            sr.flipX = true;
-        } else if (h>0) 
-        {
-            sr.flipX = false;
+            if (h < 0)
+            {
+                sr.flipX = false;
+            }
+            else if (h > 0)
+            {
+                sr.flipX = true;
+            }
         }
-
+        else 
+        {
+            if (h < 0)
+            {
+                sr.flipX = true;
+            }
+            else if (h > 0)
+            {
+                sr.flipX = false;
+            }
+        }
     }
 }
