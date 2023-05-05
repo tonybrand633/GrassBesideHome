@@ -7,12 +7,16 @@ public class CameraController : XSingletonHelper<CameraController>
 {
     public float speed = 8.0f;
     public float boundOffset = 1.8f;
+    public bool moveCameraByMouse = false;
     // »ñÈ¡ÆÁÄ»±ß½ç
     public Vector3 screenBounds = new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z);
 
     public void Update() 
     {
-        MoveCameraByMouse();
+        if (moveCameraByMouse) 
+        {
+            MoveCameraByMouse();
+        }
     }
 
     public void MoveCameraByMouse() 
