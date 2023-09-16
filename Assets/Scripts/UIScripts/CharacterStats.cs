@@ -3,10 +3,10 @@
 [System.Serializable]
 public class CharacterStats
 {
-    public int Initative;
-    public int Attack;
-    public int MaxHp;
-    public int Defence;
-    public float Cirtical;
+    public int Strength;
+    public int Endurance;
+    public int Agile;
+    public int Intelligence;
+    public float Innocence;
 }
 

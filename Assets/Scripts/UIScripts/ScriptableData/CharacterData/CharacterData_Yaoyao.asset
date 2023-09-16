@@ -15,9 +15,9 @@ MonoBehaviour:
   characterAvatarImage: {fileID: 2800000, guid: e7155ea22cd39654ba09b9ac258a6c8a, type: 3}
   characterName: Yaoyao
   characterStats:
-    Initative: 10
-    Attack: 5
-    MaxHp: 40
-    Defence: 5
-    Cirtical: 0.8
+    Strength: 5
+    Endurance: 7
+    Agile: 5
+    Intelligence: 6
+    Innocence: 3
   characterLevel: 1

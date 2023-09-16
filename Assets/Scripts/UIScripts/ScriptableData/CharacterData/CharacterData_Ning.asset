@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938571b8bd9bb6a4fbeddd8b33802c39, type: 3}
   m_Name: CharacterData_Ning
   m_EditorClassIdentifier: 
-  characterAvatarImage: {fileID: 0}
+  characterAvatarImage: {fileID: 2800000, guid: e7155ea22cd39654ba09b9ac258a6c8a, type: 3}
   characterName: Ning
   characterStats:
-    Initative: 2
-    Attack: 3
-    MaxHp: 50
-    Defence: 3
-    Cirtical: 0.4
+    Strength: 2
+    Endurance: 3
+    Agile: 5
+    Intelligence: 10
+    Innocence: 4
   characterLevel: 1

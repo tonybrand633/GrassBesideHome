@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938571b8bd9bb6a4fbeddd8b33802c39, type: 3}
   m_Name: CharacterData_Player
   m_EditorClassIdentifier: 
-  characterAvatarImage: {fileID: 2800000, guid: 177cff1ae7138b14591845061722cb04, type: 3}
+  characterAvatarImage: {fileID: 2800000, guid: 631b75f9b93aab544ae605507cd9ffee, type: 3}
   characterName: Player
   characterStats:
-    Initative: 5
-    Attack: 10
-    MaxHp: 50
-    Defence: 10
-    Cirtical: 0.3
+    Strength: 7
+    Endurance: 7
+    Agile: 3
+    Intelligence: 2
+    Belief: 5
   characterLevel: 1
