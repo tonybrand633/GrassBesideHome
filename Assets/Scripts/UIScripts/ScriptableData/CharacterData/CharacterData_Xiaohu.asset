@@ -20,4 +20,4 @@ MonoBehaviour:
     Agile: 4
     Intelligence: 1
     Innocence: 8
-  characterLevel: 1
+  characterStartLevel: 5

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938571b8bd9bb6a4fbeddd8b33802c39, type: 3}
   m_Name: CharacterData_Yaoyao
   m_EditorClassIdentifier: 
-  characterAvatarImage: {fileID: 2800000, guid: e7155ea22cd39654ba09b9ac258a6c8a, type: 3}
+  characterAvatarImage: {fileID: 2800000, guid: 8d386c4f34ff25744a8cd13b94170370, type: 3}
   characterName: Yaoyao
   characterStats:
     Strength: 5
@@ -20,4 +20,4 @@ MonoBehaviour:
     Agile: 5
     Intelligence: 6
     Innocence: 3
-  characterLevel: 1
+  characterStartLevel: 3

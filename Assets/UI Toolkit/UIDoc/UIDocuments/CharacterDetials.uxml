@@ -1,16 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="CharacterListPanel" src="project://database/Assets/UI%20Toolkit/UIDoc/UIDocuments/Resources/CharacterListPanel.uxml?fileID=9197481963319205126&amp;guid=5f49c21eba9f4e84f904464805d19dfe&amp;type=3#CharacterListPanel" />
     <ui:VisualElement name="MainRoot" style="height: 101px; flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="Background" style="flex-grow: 1; flex-direction: row; background-color: rgb(96, 86, 86);">
-            <ui:VisualElement name="CharacterList" style="flex-basis: 40%; background-color: rgb(197, 196, 196); border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgb(67, 67, 67); border-right-color: rgb(67, 67, 67); border-top-color: rgb(67, 67, 67); border-bottom-color: rgb(67, 67, 67);">
-                <ui:Instance template="CharacterListPanel" name="CharacterListPanel" style="flex-grow: 1;" />
+            <ui:VisualElement name="CharacterList" style="flex-basis: 40%; background-color: rgb(197, 196, 196); border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                <ui:VisualElement name="CharacterListPanel" style="flex-grow: 1; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
             </ui:VisualElement>
-            <ui:VisualElement name="InfoPanel" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="InfoPanel" style="flex-grow: 1; flex-direction: row; border-left-width: 10px; border-right-width: 10px; border-top-width: 10px; border-bottom-width: 10px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                 <ui:VisualElement name="StatsPanelBack" style="flex-basis: 30%;" />
                 <ui:VisualElement name="ShowPanel" style="flex-basis: auto; flex-grow: 1;">
                     <ui:VisualElement name="LevelInfo" style="flex-basis: 35%;">
                         <ui:VisualElement name="Level" style="flex-basis: 50%; align-items: center; justify-content: space-between; -unity-text-align: middle-center;">
-                            <ui:Label text="Label" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; flex-grow: 1;" />
+                            <ui:Label text="Label" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; flex-grow: 1; font-size: 12px;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Exp" style="flex-grow: 1; flex-direction: row; justify-content: center;">
                             <ui:Label text="Label" display-tooltip-when-elided="true" style="flex-basis: 50%; -unity-text-align: middle-right;" />

@@ -6,16 +6,16 @@ using System.ComponentModel;
 
 namespace UIScripts.UIShowScript.Panel 
 {
-    public class CharacterPanel : VisualElement
+    public class CharacterStatsPanel : VisualElement
     {
         readonly TemplateContainer templateContainer;
         readonly List<VisualElement> statsContainer;
 
         string[] statsName = new string[] { "力量", "耐力", "敏捷", "智力", "童心" };
 
-        public new class UxmlFactory : UxmlFactory<CharacterPanel> { }
+        public new class UxmlFactory : UxmlFactory<CharacterStatsPanel> { }
 
-        public CharacterPanel()
+        public CharacterStatsPanel()
         {
             templateContainer = Resources.Load<VisualTreeAsset>(path: "StatsPanel").Instantiate();
             templateContainer.style.flexGrow = 1;
@@ -24,7 +24,7 @@ namespace UIScripts.UIShowScript.Panel
         }
 
         //这个方法可以绑定到按钮上面，每次点击删除原有的CharacterPanel,更新新的Panel
-        public CharacterPanel(CharacterData characterData) : this()
+        public CharacterStatsPanel(CharacterData characterData) : this()
         {
             userData = characterData;
             statsContainer = templateContainer.Query(name = "CharacterStats").ToList();
@@ -45,8 +45,13 @@ namespace UIScripts.UIShowScript.Panel
 
         void SetCharacterStats(string label,string value,VisualElement container)
         {
-            container.Q<Label>("Label").text = label;
-            container.Q<Label>("Value").text = value;
+            Label l = container.Q<Label>("Label");
+            Label v = container.Q<Label>("Value");
+            l.style.fontSize = 30;
+            l.style.unityFontStyleAndWeight = FontStyle.Bold;
+            v.style.fontSize = 30;  
+            l.text = label;            
+            v.text = value;            
             container.style.flexBasis = Length.Percent(25.0f);
         }
     }

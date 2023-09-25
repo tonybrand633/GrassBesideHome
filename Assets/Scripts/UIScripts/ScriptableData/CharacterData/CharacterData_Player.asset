@@ -19,5 +19,5 @@ MonoBehaviour:
     Endurance: 7
     Agile: 3
     Intelligence: 2
-    Belief: 5
-  characterLevel: 1
+    Innocence: 0
+  characterStartLevel: 10
