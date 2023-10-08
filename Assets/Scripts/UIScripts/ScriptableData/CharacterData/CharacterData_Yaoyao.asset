@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CharacterData_Yaoyao
   m_EditorClassIdentifier: 
   characterAvatarImage: {fileID: 2800000, guid: 8d386c4f34ff25744a8cd13b94170370, type: 3}
-  characterName: Yaoyao
+  characterName: Player1
   characterStats:
-    Strength: 5
-    Endurance: 7
-    Agile: 5
-    Intelligence: 6
-    Innocence: 3
-  characterStartLevel: 3
+    Strength: 0
+    Endurance: 0
+    Agile: 0
+    Intelligence: 0
+    Innocence: 0
+  characterStartLevel: 2
+  characterStatsData: {fileID: 11400000, guid: ae74283ba3603ed45a2f55060183833f, type: 2}

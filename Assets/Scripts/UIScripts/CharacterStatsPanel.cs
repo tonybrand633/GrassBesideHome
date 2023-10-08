@@ -11,7 +11,7 @@ namespace UIScripts.UIShowScript.Panel
         readonly TemplateContainer templateContainer;
         readonly List<VisualElement> statsContainer;
 
-        string[] statsName = new string[] { "力量", "耐力", "敏捷", "智力", "童心" };
+        string[] statsName = new string[] { "力量", "耐力", "敏捷", "智力", "童真" };
 
         public new class UxmlFactory : UxmlFactory<CharacterStatsPanel> { }
 
@@ -48,7 +48,7 @@ namespace UIScripts.UIShowScript.Panel
             Label l = container.Q<Label>("Label");
             Label v = container.Q<Label>("Value");
             l.style.fontSize = 30;
-            l.style.unityFontStyleAndWeight = FontStyle.Bold;
+            //l.style.unityFontStyleAndWeight = FontStyle.Bold;
             v.style.fontSize = 30;  
             l.text = label;            
             v.text = value;            

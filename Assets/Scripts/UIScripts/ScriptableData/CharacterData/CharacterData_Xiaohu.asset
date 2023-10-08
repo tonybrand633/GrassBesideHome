@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CharacterData_Xiaohu
   m_EditorClassIdentifier: 
   characterAvatarImage: {fileID: 2800000, guid: 1f112f4f0e92b774196641aed0703c65, type: 3}
-  characterName: Xiaohu
+  characterName: Player4
   characterStats:
-    Strength: 2
-    Endurance: 5
-    Agile: 4
-    Intelligence: 1
-    Innocence: 8
-  characterStartLevel: 5
+    Strength: 0
+    Endurance: 0
+    Agile: 0
+    Intelligence: 0
+    Innocence: 0
+  characterStartLevel: 6
+  characterStatsData: {fileID: 11400000, guid: ae74283ba3603ed45a2f55060183833f, type: 2}

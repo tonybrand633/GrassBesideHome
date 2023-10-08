@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: CharacterData_Player
   m_EditorClassIdentifier: 
   characterAvatarImage: {fileID: 2800000, guid: 631b75f9b93aab544ae605507cd9ffee, type: 3}
-  characterName: Player
+  characterName: Player2
   characterStats:
-    Strength: 7
-    Endurance: 7
-    Agile: 3
-    Intelligence: 2
+    Strength: 0
+    Endurance: 0
+    Agile: 0
+    Intelligence: 0
     Innocence: 0
-  characterStartLevel: 10
+  characterStartLevel: 4
+  characterStatsData: {fileID: 11400000, guid: ae74283ba3603ed45a2f55060183833f, type: 2}

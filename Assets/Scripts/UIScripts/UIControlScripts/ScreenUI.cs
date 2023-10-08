@@ -5,37 +5,33 @@ using UIScripts.UIShowScript.Panel;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ScreenUI : MonoBehaviour
+public class ScreenUI
 {
-    [SerializeField]
-    PartyData partyData;
+    public PartyData partyData;
 
     VisualElement rootVisualElement;
 
-    void Awake()
+    private static ScreenUI singleton;
+
+    public static ScreenUI Singleton 
     {
-        
+        get
+        {
+            if (singleton == null)
+            {
+                singleton = new ScreenUI();
+            }
+            return singleton;
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void InitStart(VisualElement root,PartyData data)
     {
-        for (int i = 0; i < 20; i++)
-        {
-            int temp = partyData.CharacterDataList[0].CharacterLevel;
-            temp++;
-            partyData.CharacterDataList[0].CharacterLevel = temp;
-        }
-        rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
+        rootVisualElement = root;
+        partyData = data;
 
         SetStatsPanel(partyData.CharacterDataList[0]);
         SetCharacterListPanel(partyData.CharacterDataList);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void SetCharacterListPanel(List<CharacterData>characterDataList) 
@@ -52,7 +48,7 @@ public class ScreenUI : MonoBehaviour
         }               
     }
 
-    void SetStatsPanel(CharacterData cData) 
+    public void SetStatsPanel(CharacterData cData) 
     {
         var CharacterStatsPanel = rootVisualElement.Q(name: "StatsPanelBack");
         CharacterStatsPanel.Clear();
