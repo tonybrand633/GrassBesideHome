@@ -1,0 +1,14 @@
+#Character:hover {
+    transition-timing-function: ease-out;
+    transition-duration: 0.1s;
+    translate: 0 0;
+    scale: 1.1 1.2;
+    border-left-color: rgba(224, 62, 49, 255);
+    border-right-color: rgba(224, 62, 49, 255);
+    border-top-color: rgba(224, 62, 49, 255);
+    border-bottom-color: rgba(224, 62, 49, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}

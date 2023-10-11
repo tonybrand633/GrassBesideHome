@@ -11,13 +11,13 @@ namespace UIScripts.UIShowScript.Panel
         readonly TemplateContainer templateContainer;
         readonly List<VisualElement> statsContainer;
 
-        string[] statsName = new string[] { "力量", "耐力", "敏捷", "智力", "童真" };
+        string[] statsName = new string[] { "Strength", "Endurance", "Agile", "Intelligence", "Innocence" };
 
         public new class UxmlFactory : UxmlFactory<CharacterStatsPanel> { }
 
         public CharacterStatsPanel()
         {
-            templateContainer = Resources.Load<VisualTreeAsset>(path: "StatsPanel").Instantiate();
+            templateContainer = Resources.Load<VisualTreeAsset>(path: "UIPrefabs/StatsPanel").Instantiate();
             templateContainer.style.flexGrow = 1;
             //实例化添加
             hierarchy.Add(templateContainer);

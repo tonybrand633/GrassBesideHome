@@ -24,10 +24,7 @@ public class XAnimator : MonoBehaviour
         {
             aoc[aoc.animationClips[i].name] = animationClips[i];
         }
-        animator.runtimeAnimatorController = aoc;
-        
-
-
+        animator.runtimeAnimatorController = aoc;        
     }
 
     // Update is called once per frame

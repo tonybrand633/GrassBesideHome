@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/UIDoc/USS/FontStyle.uss?fileID=7433441132597879392&amp;guid=37fc6b2fcbbcd82489649185570c2437&amp;type=3#FontStyle" />
+    <ui:VisualElement name="StatsPanel" style="flex-basis: 0; flex-direction: column; flex-grow: 1;">
+        <ui:VisualElement name="CharacterStats" style="flex-grow: 0; flex-basis: 25%; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" style="flex-basis: 50%; -unity-text-align: middle-left; color: rgb(197, 21, 29);" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Value" style="flex-grow: 1; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CharacterStats" style="flex-grow: 0; flex-basis: 25%; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" style="flex-basis: 50%; -unity-text-align: middle-left; color: rgb(243, 163, 0);" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Value" style="flex-grow: 1; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CharacterStats" style="flex-grow: 0; flex-basis: 25%; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" style="flex-basis: 50%; -unity-text-align: middle-left; color: rgb(133, 108, 231);" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Value" style="flex-grow: 1; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CharacterStats" style="flex-grow: 0; flex-basis: 25%; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" style="flex-basis: 50%; -unity-text-align: middle-left; color: rgb(133, 108, 231);" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Value" style="flex-grow: 1; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CharacterStats" style="flex-grow: 0; flex-basis: 25%; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" style="flex-basis: 50%; -unity-text-align: middle-left; color: rgb(133, 108, 231);" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="Value" style="flex-grow: 1; -unity-text-align: middle-center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIDocument/%E5%8D%95%E4%B8%AA%E7%9A%84UI%E6%A0%B7%E5%BC%8F%E6%96%87%E4%BB%B6-USS/MainTitle.uss?fileID=7433441132597879392&amp;guid=1e4c3a71bd915054b9518e4ac4ce40f9&amp;type=3#MainTitle" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Creation/Sprite/Background/Background.jpg?fileID=2800000&amp;guid=cb3ecc65dc8b5bc41ac99a60fa629f11&amp;type=3#Background&apos;); flex-direction: column-reverse; justify-content: center; align-items: center;">
+        <ui:VisualElement name="ButtonGroup" class="button_group" style="top: 70%; flex-basis: auto; flex-direction: column; flex-grow: 1;">
+            <ui:Button text="Start" display-tooltip-when-elided="true" name="Start" class="maintitle_button" />
+            <ui:Button text="Load" display-tooltip-when-elided="true" name="Load" class="maintitle_button" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" name="Settings" class="maintitle_button" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exits" class="maintitle_button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

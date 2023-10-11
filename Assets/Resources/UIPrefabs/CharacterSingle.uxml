@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/UIDoc/USS/HovorStyle.uss?fileID=7433441132597879392&amp;guid=c1df2ae8d302cfb40bef859bf97867e1&amp;type=3#HovorStyle" />
+    <ui:VisualElement name="Character" style="flex-basis: 25%; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; background-color: rgb(43, 43, 43); flex-direction: row;">
+        <ui:VisualElement name="headicon" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-basis: 50%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-image: none;">
+            <ui:VisualElement name="image" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="info" style="flex-grow: 1; background-color: rgb(137, 129, 129); justify-content: space-around;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="name" style="-unity-text-align: upper-center; -unity-font: url(&apos;project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=5a8c58350d3421d4ba5e45c4a2884a02&amp;type=2#ThaleahFat_TTF SDF&apos;); font-size: 40px;" />
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="level" style="-unity-text-align: middle-center; -unity-font: url(&apos;project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&amp;guid=585188cdc4600544eb408bee749e4b3a&amp;type=3#ThaleahFat_TTF&apos;); -unity-font-definition: url(&apos;project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&amp;guid=5a8c58350d3421d4ba5e45c4a2884a02&amp;type=2#ThaleahFat_TTF SDF&apos;); font-size: 40px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

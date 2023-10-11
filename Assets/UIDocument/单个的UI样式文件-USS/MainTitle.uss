@@ -1,0 +1,56 @@
+.maintitle_button {
+    background-color: rgb(120, 0, 0);
+    background-image: none;
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    width: 100%;
+    height: auto;
+    left: auto;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-font: url('project://database/Assets/PackageSupport/Font_Pixel/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/PackageSupport/Font_Pixel/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=5a8c58350d3421d4ba5e45c4a2884a02&type=2#ThaleahFat_TTF SDF');
+    -unity-font-style: bold;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 255);
+    position: relative;
+    flex-basis: 20%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    -unity-text-align: middle-center;
+    flex-grow: 0;
+}
+
+.button_group {
+    align-items: center;
+    flex-grow: 1;
+    position: absolute;
+    top: 70%;
+    justify-content: space-between;
+    width: 20%;
+    height: 25%;
+    flex-basis: auto;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.maintitle_button:hover {
+    scale: 1.2 1.2;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+    background-color: rgba(255, 0, 0, 255);
+}

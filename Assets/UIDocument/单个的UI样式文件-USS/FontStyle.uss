@@ -1,0 +1,14 @@
+#Label {
+    -unity-font: url('project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=5a8c58350d3421d4ba5e45c4a2884a02&type=2#ThaleahFat_TTF SDF');
+    font-size: 16px;
+    -unity-text-align: middle-center;
+    color: rgba(202, 144, 67, 255);
+}
+
+#Value {
+    -unity-font: url('project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF.ttf?fileID=12800000&guid=585188cdc4600544eb408bee749e4b3a&type=3#ThaleahFat_TTF');
+    -unity-font-definition: url('project://database/Assets/PackageSupport/Thaleah_PixelFont/Materials/ThaleahFat_TTF%20SDF.asset?fileID=11400000&guid=5a8c58350d3421d4ba5e45c4a2884a02&type=2#ThaleahFat_TTF SDF');
+    font-size: 16px;
+    color: rgba(0, 0, 0, 255);
+}

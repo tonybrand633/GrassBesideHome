@@ -47,8 +47,8 @@ public static class SpriteSheetPackerImport
             //}
             var pngData = smallImage.EncodeToPNG();
             File.WriteAllBytes(rootPath + "/" + image.name + "/" + metaData.name + ".PNG", pngData);
-            Debug.Log("Trans pics done");
         }
+        Debug.Log("Trans pics done");
     }
 }
 

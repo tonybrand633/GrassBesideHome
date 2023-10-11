@@ -22,4 +22,12 @@ public class UIManager:MonoBehaviour
         rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
         ScreenUI.Singleton.InitStart(rootVisualElement,partyData);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)&&rootVisualElement!=null) 
+        {
+            rootVisualElement.visible = false;
+        }
+    }
 }
