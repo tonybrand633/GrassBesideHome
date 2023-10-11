@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UIElements;
 
-public class UIManager:MonoBehaviour
+public class CharacterUIManager:MonoBehaviour
 {
     VisualElement rootVisualElement;
     [SerializeField]
     PartyData partyData;
-    [SerializeField]
-    FontStyle pixelStyle;
 
     private void Awake()
     {

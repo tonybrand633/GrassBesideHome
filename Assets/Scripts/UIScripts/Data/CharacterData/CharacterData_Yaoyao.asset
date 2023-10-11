@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938571b8bd9bb6a4fbeddd8b33802c39, type: 3}
   m_Name: CharacterData_Yaoyao
   m_EditorClassIdentifier: 
-  characterAvatarImage: {fileID: 2800000, guid: 177cff1ae7138b14591845061722cb04, type: 3}
+  characterAvatarImage: {fileID: 2800000, guid: 33240d8190a4c1d4fa68235b46d2f7d0, type: 3}
   characterName: Player1
   characterStats:
     Strength: 0
