@@ -14,9 +14,15 @@ public class ASceneScripts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("SceneA:LeftMouseDown");
             GameManager.instance.restoreCount++;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Count is:" + GameManager.instance.restoreCount);
         }
     }
 }

@@ -17,7 +17,7 @@ public class BSceneScripts : MonoBehaviour
         if (Input.GetMouseButtonDown(0)&&singleClickCheckUp)
         {
             singleClickCheckUp = false;
-            Debug.Log("LeftMouseDown");
+            Debug.Log("SceneB:LeftMouseDown");
             GameManager.instance.restoreCount++;
         }
 
