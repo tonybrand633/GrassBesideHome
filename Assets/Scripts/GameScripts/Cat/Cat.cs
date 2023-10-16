@@ -10,7 +10,7 @@ public class Cat : MonoBehaviour
 
     [SerializeField]
     bool isDetectedFood;
-
+    SpriteRenderer sr;
 
 
     public int foodCount;
@@ -18,19 +18,25 @@ public class Cat : MonoBehaviour
     public GameObject targetGameObject;
     public bool isMealing = false;
 
-    [Header("BaseStats")]
+    [Header("基础数值")]
     public float speed;
     public float detect_Radius;
+    public float size;
+
+    [Header("状态添加数值")]
+    public float a_speed;
+    public float a_detectRadius;
+    public float a_size;
 
     void Awake() 
     {
+        sr = GetComponent<SpriteRenderer>(); 
         CatCSVReader.LoadData();
         InitializeData();
     }
 
     void Update()
     {
-
         DetectFood();
         if (targetGameObject != null && !isMealing)
         {
@@ -83,9 +89,17 @@ public class Cat : MonoBehaviour
 
     void FlipSprite(bool flip)
     {
-        Vector3 scale = transform.localScale;
-        scale.x = flip ? -1 : 1;
-        transform.localScale = scale;
+        if (flip)
+        {
+            sr.flipX = true;
+        }
+        else 
+        {
+            sr.flipX = false;
+        }
+        //Vector3 scale = transform.localScale;
+        //scale.x = flip ? -scale.x : scale.x;
+        //transform.localScale = scale;
     }
 
     void StartMealing()
@@ -104,10 +118,15 @@ public class Cat : MonoBehaviour
         // 可能的停止进食动画逻辑
     }
 
-    void InitializeData() 
+    void InitializeData()
     {
-         speed = CatCSVReader.GetBaseSpeed(character);
-         detect_Radius = CatCSVReader.GetBaseDetectSize(character);
+        speed = CatCSVReader.GetBaseSpeed(character);
+        detect_Radius = CatCSVReader.GetBaseDetectSize(character);
+        size = CatCSVReader.GetBaseSize(character);
+        Vector3 temp = transform.localScale;
+        temp.x *= size;
+        temp.y *= size;
+        transform.localScale = temp;
     }
 
     void ReadState() 

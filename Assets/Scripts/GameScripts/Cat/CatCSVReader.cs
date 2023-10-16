@@ -8,8 +8,8 @@ public static class CatCSVReader
     public static string stageDataFileName = "ExcelCSVFolder/CatStage";
     public static string characterDataFileName = "ExcelCSVFolder/CatCharacter";
 
-    private static Dictionary<CatStageEnum, List<int>> catStageDic;
-    private static Dictionary<CatCharacterEnum,List<int>> catCharacterDic = new Dictionary<CatCharacterEnum, List<int>>();
+    private static Dictionary<CatStageEnum, List<float>> catStageDic;
+    private static Dictionary<CatCharacterEnum, List<float>> catCharacterDic;
 
     private static bool isLoaded = false; 
 
@@ -23,8 +23,8 @@ public static class CatCSVReader
         {
             return;
         }
-        catStageDic = new Dictionary<CatStageEnum, List<int>>();
-        catCharacterDic = new Dictionary<CatCharacterEnum, List<int>>();
+        catStageDic = new Dictionary<CatStageEnum, List<float>>();
+        catCharacterDic = new Dictionary<CatCharacterEnum, List<float>>();
         TextAsset stageData = Resources.Load<TextAsset>(stageDataFileName);
         TextAsset characterData = Resources.Load<TextAsset>(characterDataFileName);
 
@@ -45,7 +45,7 @@ public static class CatCSVReader
             CatStageEnum stateEnum;
             if (Enum.TryParse<CatStageEnum>(s_row[0], true, out stateEnum))
             {
-                List<int> stateData = new List<int>();
+                List<float> stateData = new List<float>();
 
                 for (int j = 1; j < s_row.Length; j++)
                 {
@@ -61,18 +61,20 @@ public static class CatCSVReader
         }
 
         string[] c_rows = characterData.text.Split('\n');
-
+        //Debug.Log(c_rows.Length);
         for (int i = 1; i < c_rows.Length; i++)  // Skip the header row
         {
             string[] c_row = c_rows[i].Split(',');
+            
             string key = c_row[0];
-            List<int> values = new List<int>();
+            //Debug.Log(key + ":" + " Have " + c_row.Length + " Elements is" + c_row.ToString());
+            
 
             CatCharacterEnum catEnum;
             if (Enum.TryParse<CatCharacterEnum>(c_row[0], true, out catEnum))
             {
-                List<int> catCharacterData = new List<int>();
-
+                List<float> catCharacterData = new List<float>();
+                //Debug.Log("c_row: "+c_row.Length);
                 for (int j = 1; j < c_row.Length; j++)
                 {
                     int value;
@@ -86,9 +88,31 @@ public static class CatCSVReader
             }
         }
         isLoaded = true;
+
+        //±éÀúÒ»ÏÂ×Öµä
+        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Friendly].Count; i++)
+        {
+            Debug.Log("Friendly" + catCharacterDic[CatCharacterEnum.Friendly][i]);
+        }
+        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Timid].Count; i++)
+        {
+            Debug.Log("Timid" + catCharacterDic[CatCharacterEnum.Timid][i]);
+        }
+        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Cunning].Count; i++)
+        {
+            Debug.Log("Cunning" + catCharacterDic[CatCharacterEnum.Cunning][i]);
+        }
+        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Lazy].Count; i++)
+        {
+            Debug.Log("Lazy" + catCharacterDic[CatCharacterEnum.Lazy][i]);
+        }
+        for (int i = 0; i < catCharacterDic[CatCharacterEnum.King].Count; i++)
+        {
+            Debug.Log("King" + catCharacterDic[CatCharacterEnum.King][i]);
+        }
     }
 
-    public static List<int> GetStageDataList(CatStageEnum key)
+    public static List<float> GetStageDataList(CatStageEnum key)
     {
         if (catStageDic.ContainsKey(key))
             return catStageDic[key];
@@ -96,7 +120,7 @@ public static class CatCSVReader
             return null;
     }
 
-    public static int GetStageSpeed(CatStageEnum key) 
+    public static float GetStageSpeed(CatStageEnum key) 
     {
         if (catStageDic.ContainsKey(key))
         {
@@ -108,7 +132,7 @@ public static class CatCSVReader
         }
     }
 
-    public static int GetStageDetectRadius(CatStageEnum key)
+    public static float GetStageDetectRadius(CatStageEnum key)
     {
         if (catStageDic.ContainsKey(key))
         {
@@ -120,7 +144,7 @@ public static class CatCSVReader
             return -1;
         }
     }
-    public static int GetStageSize(CatStageEnum key)
+    public static float GetStageSize(CatStageEnum key)
     {
         if (catStageDic.ContainsKey(key))
         {
@@ -132,7 +156,7 @@ public static class CatCSVReader
         }
     }
 
-    public static List<int> GetCharacterList(CatCharacterEnum key) 
+    public static List<float> GetCharacterList(CatCharacterEnum key) 
     {
         if (catCharacterDic.ContainsKey(key))
             return catCharacterDic[key];
@@ -140,7 +164,7 @@ public static class CatCSVReader
             return null;
     }
 
-    public static int GetBaseSpeed(CatCharacterEnum key)
+    public static float GetBaseSpeed(CatCharacterEnum key)
     {
         if (catCharacterDic == null)
         {
@@ -150,18 +174,40 @@ public static class CatCSVReader
         {
             return catCharacterDic[key][0];
         }
-
-
         else
         {
             return -1;
         }
     }
-    public static int GetBaseDetectSize(CatCharacterEnum key)
+    public static float GetBaseDetectSize(CatCharacterEnum key)
     {
         if (catCharacterDic.ContainsKey(key))
         {
             return catCharacterDic[key][1];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public static float GetBaseSize(CatCharacterEnum key) 
+    {
+        if (catCharacterDic.ContainsKey(key))
+        {
+            try
+            {
+                return catCharacterDic[key][2];
+            }
+            catch (Exception e) 
+            {
+                foreach (var item in catCharacterDic[key])
+                {
+                    //Debug.Log(item);
+                }
+                //Debug.LogError(catCharacterDic[key].Count);
+                return -1;
+            }
         }
         else
         {
