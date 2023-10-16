@@ -28,7 +28,7 @@ public class Cat_Food : MonoBehaviour
         // 遍历检测到的所有 Cat
         foreach (Collider2D catCollider in detectedCats)
         {
-            Debug.Log(catCollider.name);
+            //Debug.Log(catCollider.name);
             Cat catBehavior = catCollider.GetComponent<Cat>();
             // 如果 Cat 正在进食
             if (catBehavior != null && catBehavior.isMealing && catBehavior.targetGameObject == this.gameObject)

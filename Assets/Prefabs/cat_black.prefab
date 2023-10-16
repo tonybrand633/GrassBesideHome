@@ -99,12 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDetectedFood: 0
+  character: {fileID: 11400000, guid: 8c2f9b00c64bd884f9cf1ec9eadf69fb, type: 2}
   targetPosition: {x: 0, y: 0}
   targetGameObject: {fileID: 0}
   isMealing: 0
-  desRadius: 0.6
   detectRadius: 3
-  moveToFoodSpeed: 2
 --- !u!61 &1328335613602940131
 BoxCollider2D:
   m_ObjectHideFlags: 0

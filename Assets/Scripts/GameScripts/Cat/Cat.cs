@@ -5,20 +5,32 @@ using UnityEngine;
 
 public class Cat : MonoBehaviour
 {
+    public CatCharacterEnum character;
+    public CatStageEnum stage;
+
     [SerializeField]
     bool isDetectedFood;
 
+
+
+    public int foodCount;
     public Vector2 targetPosition;
     public GameObject targetGameObject;
     public bool isMealing = false;
-    public float desRadius = 3.0f;
 
-    //检测范围内食物的生成
-    public float detectRadius = 10.0f;
-    public float moveToFoodSpeed = 2.0f;
+    [Header("BaseStats")]
+    public float speed;
+    public float detect_Radius;
+
+    void Awake() 
+    {
+        CatCSVReader.LoadData();
+        InitializeData();
+    }
 
     void Update()
     {
+
         DetectFood();
         if (targetGameObject != null && !isMealing)
         {
@@ -28,7 +40,7 @@ public class Cat : MonoBehaviour
 
     void DetectFood()
     {
-        Collider2D detectedFood = Physics2D.OverlapCircle(transform.position, detectRadius, LayerMask.GetMask("CatFood"));
+        Collider2D detectedFood = Physics2D.OverlapCircle(transform.position, detect_Radius, LayerMask.GetMask("CatFood"));
 
         if (detectedFood != null&&!isDetectedFood)
         {
@@ -47,8 +59,8 @@ public class Cat : MonoBehaviour
             float angle = Random.Range(0, 360);
 
             // 使用三角函数计算目标点的位置
-            targetPosition.x = targetGameObject.transform.position.x + desRadius * Mathf.Cos(angle * Mathf.Deg2Rad);
-            targetPosition.y = targetGameObject.transform.position.y + desRadius * Mathf.Sin(angle * Mathf.Deg2Rad);
+            targetPosition.x = targetGameObject.transform.position.x + targetGameObject.GetComponent<Cat_Food>().detectionRadius * Mathf.Cos(angle * Mathf.Deg2Rad);
+            targetPosition.y = targetGameObject.transform.position.y + targetGameObject.GetComponent<Cat_Food>().detectionRadius * Mathf.Sin(angle * Mathf.Deg2Rad);
         }
 
         // 确定方向并翻转Sprite
@@ -56,13 +68,13 @@ public class Cat : MonoBehaviour
         FlipSprite(direction.x < 0);
 
         // 移动到目标位置
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveToFoodSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
         // 判断是否到达目标位置
         float distance = Vector3.Distance(transform.position, targetPosition);
         if (distance <= 0.1f)
         {
-            Debug.Log("On Position");
+            //Debug.Log("On Position");
             Vector2 dir = targetGameObject.transform.position - transform.position;
             FlipSprite(dir.x < 0);
             StartMealing();
@@ -80,6 +92,7 @@ public class Cat : MonoBehaviour
     {
         isMealing = true;
         // 可能的进食动画逻辑
+        foodCount++;
     }
 
     public void StopMealingOrLoseTarget()
@@ -91,8 +104,24 @@ public class Cat : MonoBehaviour
         // 可能的停止进食动画逻辑
     }
 
+    void InitializeData() 
+    {
+         speed = CatCSVReader.GetBaseSpeed(character);
+         detect_Radius = CatCSVReader.GetBaseDetectSize(character);
+    }
+
+    void ReadState() 
+    {
+        
+    }
+
+    public void ApplyState() 
+    {
+    
+    }    
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, detectRadius);
+        Gizmos.DrawWireSphere(transform.position, detect_Radius);
     }
 }

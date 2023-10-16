@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   existTimeAfterDetection: 1
-  detectionRadius: 0.8
+  detectionRadius: 0.6
   currentTargetCAT: []
 --- !u!58 &176569837
 CircleCollider2D:

@@ -1,0 +1,6 @@
+Character,BaseSpeed,DetectRadius
+Friendly,5,3
+Timid,8,1
+Cunning,3,10
+Lazy,1,2
+King,10,10

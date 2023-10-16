@@ -28,7 +28,6 @@ public class CharacterStatsData : ScriptableObject
         {
             //Debug.Log(res[i]+"ÕâÊÇµÚ£º"+ i.ToString());
             CharacterStats characterStats = new CharacterStats();
-
             
             string[] resDetail = res[i].Split(",");
             characterStats.Strength =  int.Parse(resDetail[0]);
@@ -39,5 +38,4 @@ public class CharacterStatsData : ScriptableObject
             characterStatsList.Add(characterStats);
         }
     }
-
 }
