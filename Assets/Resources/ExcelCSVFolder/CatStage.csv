@@ -1,6 +1,6 @@
 Stage,Speed,DetectRadius,Size
 Hungry,5,5,0.5
-Low,8,3,0.9
+Low,8,3,0.8
 Middle,6,2,1
-Fat,2,1,1.6
+Fat,2,1,1.5
 Death,0,0,0

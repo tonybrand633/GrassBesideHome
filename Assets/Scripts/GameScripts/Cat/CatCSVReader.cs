@@ -13,11 +13,7 @@ public static class CatCSVReader
 
     private static bool isLoaded = false; 
 
-
-    // Start is called before the first frame update
-
-
-    public static void LoadData() 
+        public static void LoadData() 
     {
         if (isLoaded) 
         {
@@ -35,7 +31,6 @@ public static class CatCSVReader
         }
 
         string[] s_rows = stageData.text.Split('\n');
-
         for (int i = 1; i < s_rows.Length; i++)  // Skip the header row
         {
             string[] s_row = s_rows[i].Split(',');
@@ -61,20 +56,15 @@ public static class CatCSVReader
         }
 
         string[] c_rows = characterData.text.Split('\n');
-        //Debug.Log(c_rows.Length);
         for (int i = 1; i < c_rows.Length; i++)  // Skip the header row
         {
-            string[] c_row = c_rows[i].Split(',');
-            
+            string[] c_row = c_rows[i].Split(',');            
             string key = c_row[0];
-            //Debug.Log(key + ":" + " Have " + c_row.Length + " Elements is" + c_row.ToString());
             
-
             CatCharacterEnum catEnum;
             if (Enum.TryParse<CatCharacterEnum>(c_row[0], true, out catEnum))
             {
                 List<float> catCharacterData = new List<float>();
-                //Debug.Log("c_row: "+c_row.Length);
                 for (int j = 1; j < c_row.Length; j++)
                 {
                     float value;
@@ -195,19 +185,19 @@ public static class CatCSVReader
     {
         if (catCharacterDic.ContainsKey(key))
         {
-            try
-            {
-                return catCharacterDic[key][2];
-            }
-            catch (Exception e) 
-            {
-                foreach (var item in catCharacterDic[key])
-                {
-                    //Debug.Log(item);
-                }
-                //Debug.LogError(catCharacterDic[key].Count);
-                return -1;
-            }
+            return catCharacterDic[key][2];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public static float GetBaseMealTime(CatCharacterEnum key) 
+    {
+        if (catCharacterDic.ContainsKey(key))
+        {
+            return catCharacterDic[key][3];
         }
         else
         {

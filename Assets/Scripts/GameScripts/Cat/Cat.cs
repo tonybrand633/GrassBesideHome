@@ -22,6 +22,7 @@ public class Cat : MonoBehaviour
     public float speed;
     public float detect_Radius;
     public float size;
+    public float mealFinishTime;
 
     [Header("状态添加数值")]
     public float a_speed;
@@ -83,6 +84,11 @@ public class Cat : MonoBehaviour
             //Debug.Log("On Position");
             Vector2 dir = targetGameObject.transform.position - transform.position;
             FlipSprite(dir.x < 0);
+            Cat_Food cat_food = targetGameObject.GetComponent<Cat_Food>();
+            if (!cat_food.hasSavedFirstCat) 
+            {
+                cat_food.SaveFirstCat(this.gameObject);
+            }
             StartMealing();
         }
     }
@@ -102,12 +108,7 @@ public class Cat : MonoBehaviour
         //transform.localScale = scale;
     }
 
-    void StartMealing()
-    {
-        isMealing = true;
-        // 可能的进食动画逻辑
-        foodCount++;
-    }
+    
 
     public void StopMealingOrLoseTarget()
     {
@@ -123,21 +124,39 @@ public class Cat : MonoBehaviour
         speed = CatCSVReader.GetBaseSpeed(character);
         detect_Radius = CatCSVReader.GetBaseDetectSize(character);
         size = CatCSVReader.GetBaseSize(character);
+        mealFinishTime = CatCSVReader.GetBaseMealTime(character);
         Vector3 temp = transform.localScale;
         temp.x *= size;
         temp.y *= size;
         transform.localScale = temp;
     }
+    void StartMealing()
+    {
+        isMealing = true;
+        // 可能的进食动画逻辑
+        StartCoroutine(MealFinishAfterArrive());
+    }
 
-    void ReadState() 
+    IEnumerator MealFinishAfterArrive()
+    {
+        yield return new WaitForSeconds(mealFinishTime);
+        FinishMeal();
+    }
+
+    void FinishMeal() 
+    {
+        if (targetGameObject!=null) 
+        {
+            Debug.Log("吃完饭啦！"+this.gameObject.name);
+            foodCount++;
+        }        
+    }
+
+    void MealDownLogic() 
     {
         
     }
 
-    public void ApplyState() 
-    {
-    
-    }    
 
     private void OnDrawGizmos()
     {
