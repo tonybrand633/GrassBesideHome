@@ -49,8 +49,8 @@ public static class CatCSVReader
 
                 for (int j = 1; j < s_row.Length; j++)
                 {
-                    int value;
-                    if (int.TryParse(s_row[j], out value))
+                    float value;
+                    if (float.TryParse(s_row[j], out value))
                     {
                         stateData.Add(value);
                     }
@@ -77,8 +77,8 @@ public static class CatCSVReader
                 //Debug.Log("c_row: "+c_row.Length);
                 for (int j = 1; j < c_row.Length; j++)
                 {
-                    int value;
-                    if (int.TryParse(c_row[j], out value))
+                    float value;
+                    if (float.TryParse(c_row[j], out value))
                     {
                         catCharacterData.Add(value);
                     }
@@ -90,26 +90,26 @@ public static class CatCSVReader
         isLoaded = true;
 
         //±éÀúÒ»ÏÂ×Öµä
-        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Friendly].Count; i++)
-        {
-            Debug.Log("Friendly" + catCharacterDic[CatCharacterEnum.Friendly][i]);
-        }
-        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Timid].Count; i++)
-        {
-            Debug.Log("Timid" + catCharacterDic[CatCharacterEnum.Timid][i]);
-        }
-        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Cunning].Count; i++)
-        {
-            Debug.Log("Cunning" + catCharacterDic[CatCharacterEnum.Cunning][i]);
-        }
-        for (int i = 0; i < catCharacterDic[CatCharacterEnum.Lazy].Count; i++)
-        {
-            Debug.Log("Lazy" + catCharacterDic[CatCharacterEnum.Lazy][i]);
-        }
-        for (int i = 0; i < catCharacterDic[CatCharacterEnum.King].Count; i++)
-        {
-            Debug.Log("King" + catCharacterDic[CatCharacterEnum.King][i]);
-        }
+        //for (int i = 0; i < catCharacterDic[CatCharacterEnum.Friendly].Count; i++)
+        //{
+        //    Debug.Log("Friendly" + catCharacterDic[CatCharacterEnum.Friendly][i]);
+        //}
+        //for (int i = 0; i < catCharacterDic[CatCharacterEnum.Timid].Count; i++)
+        //{
+        //    Debug.Log("Timid" + catCharacterDic[CatCharacterEnum.Timid][i]);
+        //}
+        //for (int i = 0; i < catCharacterDic[CatCharacterEnum.Cunning].Count; i++)
+        //{
+        //    Debug.Log("Cunning" + catCharacterDic[CatCharacterEnum.Cunning][i]);
+        //}
+        //for (int i = 0; i < catCharacterDic[CatCharacterEnum.Lazy].Count; i++)
+        //{
+        //    Debug.Log("Lazy" + catCharacterDic[CatCharacterEnum.Lazy][i]);
+        //}
+        //for (int i = 0; i < catCharacterDic[CatCharacterEnum.King].Count; i++)
+        //{
+        //    Debug.Log("King" + catCharacterDic[CatCharacterEnum.King][i]);
+        //}
     }
 
     public static List<float> GetStageDataList(CatStageEnum key)
