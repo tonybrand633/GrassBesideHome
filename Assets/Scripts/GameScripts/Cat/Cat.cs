@@ -49,6 +49,7 @@ public class Cat : MonoBehaviour
     {
         Collider2D detectedFood = Physics2D.OverlapCircle(transform.position, detect_Radius, LayerMask.GetMask("CatFood"));
 
+        //在这里可以制作食物检测的优先级
         if (detectedFood != null&&!isDetectedFood)
         {
             targetGameObject = detectedFood.gameObject;
@@ -145,6 +146,7 @@ public class Cat : MonoBehaviour
 
     void FinishMeal() 
     {
+
         if (targetGameObject!=null) 
         {
             Debug.Log("吃完饭啦！"+this.gameObject.name);

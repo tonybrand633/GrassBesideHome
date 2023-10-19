@@ -20,8 +20,7 @@ public class Cat_Food : MonoBehaviour
 
     private void Awake()
     {
-        //circleCollider = GetComponent<CircleCollider2D>();
-        //detectionRadius = GetComponent<CircleCollider2D>().radius;
+
     }
 
     private void Update()
