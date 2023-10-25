@@ -46,6 +46,7 @@ public class IdleState : State<PlayerS>
 
     public override void Enter() 
     {
+        context.isJumping = false;
         context.SetAnimationBool("isGround", true);
         context.SetAnimationBool("isJump", false);
     }
@@ -69,6 +70,7 @@ public class RunState : State<PlayerS>
 
     public override void Enter()
     {
+        context.isJumping = false;
         context.SetAnimationBool("isGround", true);
         context.SetAnimationBool("isJump", false);
     }
@@ -91,6 +93,7 @@ public class JumpState : State<PlayerS>
 
     public override void Enter()
     {
+        context.isJumping = true;
         context.SetAnimationBool("isJump", true);
         context.SetAnimationBool("isGround", false);
     }

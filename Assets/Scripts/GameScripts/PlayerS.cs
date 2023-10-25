@@ -29,6 +29,7 @@ public class PlayerS : MonoBehaviour
     //½ÇÉ«×´Ì¬
     public bool isWalkMode;
     public bool canMoveVelocity;
+    public bool isJumping;
 
     //×´Ì¬»ú
     public StateController<PlayerS> playerStateMachine;
@@ -115,13 +116,7 @@ public class PlayerS : MonoBehaviour
             sr.flipX = true;
         }
 
-        //ÅÐ¶Ï½ÇÉ«µÄÌøÔ¾
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
-            
-            playerStateMachine.TransitionState(jumpState);
-        }
+
         yVelocity = rb2d.velocity.y;
     }
 
@@ -189,6 +184,12 @@ public class PlayerS : MonoBehaviour
                 currentSpeed = moveSpeed;
             }
         }
+        //ÅÐ¶Ï½ÇÉ«µÄÌøÔ¾
+        if (Input.GetKeyDown(KeyCode.Space)&&!isJumping)
+        {
+            rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
+            playerStateMachine.TransitionState(jumpState);
+        }
     }
 
     void MovePlayer()
@@ -230,10 +231,12 @@ public class PlayerS : MonoBehaviour
 
     void CheckForGround() 
     {
-        RaycastHit2D groundHitL,groundHitR,groundHitCenter;
+        RaycastHit2D groundHitL,groundHitR,groundHitCenter,groundHitCrossR,groundHitCrossL;
         groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, 0.1f, groundLayer);
         groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, 0.1f, groundLayer);
         groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, 0.1f, groundLayer);
+        //groundHitCrossL = Physics2D.Raycast(leftBottom, rightBottom + Vector2.down, 0.1f, groundLayer);
+
         if (groundHitL||groundHitR||groundHitCenter)
         {
             if (Mathf.Abs(movement.x) > 0)
@@ -296,6 +299,6 @@ public class PlayerS : MonoBehaviour
         Gizmos.DrawWireSphere(leftTop, 0.1f);
         Gizmos.DrawWireSphere(leftBottom, 0.1f);
 
-        Gizmos.DrawRay(leftTop, Vector2.left);
+        //Gizmos.DrawRay(leftBottom, Vector2.down+rightBottom);
     }
 }
