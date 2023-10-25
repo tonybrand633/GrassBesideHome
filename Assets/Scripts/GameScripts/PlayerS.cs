@@ -42,6 +42,10 @@ public class PlayerS : MonoBehaviour
     //角色自定义检测
     Bounds colBounds;
     Vector2 top;
+    Vector2 rightTop;
+    Vector2 rightBottom;
+    Vector2 leftTop;
+    Vector2 leftBottom;
     Vector2 right;
     Vector2 bottom;
     Vector2 left;
@@ -119,7 +123,6 @@ public class PlayerS : MonoBehaviour
             playerStateMachine.TransitionState(jumpState);
         }
         yVelocity = rb2d.velocity.y;
-        Debug.Log(yVelocity);
     }
 
     public void SetAnimation()
@@ -216,15 +219,22 @@ public class PlayerS : MonoBehaviour
         right = Utils.GetRightPoint(colBounds);
         bottom = Utils.GetBottomPoint(colBounds);
         left = Utils.GetLeftPoint(colBounds);
+        rightBottom = Utils.GetRightBottomPoint(colBounds);
+        rightTop = Utils.GetRightTopPoint(colBounds);
+        leftBottom = Utils.GetLeftBottomPoint(colBounds);
+        leftTop = Utils.GetLeftTopPoint(colBounds);
+        
         CheckForGround();
         CheckForWall();
     }
 
     void CheckForGround() 
     {
-        RaycastHit2D groundHit;
-        groundHit = Physics2D.Raycast(bottom, Vector2.down, 0.1f, groundLayer);
-        if (groundHit)
+        RaycastHit2D groundHitL,groundHitR,groundHitCenter;
+        groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, 0.1f, groundLayer);
+        groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, 0.1f, groundLayer);
+        groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, 0.1f, groundLayer);
+        if (groundHitL||groundHitR||groundHitCenter)
         {
             if (Mathf.Abs(movement.x) > 0)
             {
@@ -243,19 +253,17 @@ public class PlayerS : MonoBehaviour
 
     void CheckForWall() 
     {
-        RaycastHit2D wallHitLeft,wallHitRight;
-        wallHitLeft = Physics2D.Raycast(left, Vector2.left, 0.1f,wallLayer);
-        wallHitRight = Physics2D.Raycast(right, Vector2.right, 0.1f, wallLayer);
-        if (wallHitLeft) 
+        RaycastHit2D wallHitLeftTop, wallHitLeftBottom, wallHitRightTop, wallHitRightBottom;
+        wallHitLeftTop = Physics2D.Raycast(leftTop, Vector2.left, 0.1f,wallLayer);
+        wallHitLeftBottom = Physics2D.Raycast(leftBottom,Vector2.left,0.1f,wallLayer);
+        wallHitRightBottom = Physics2D.Raycast(rightBottom,Vector2.right,0.1f,wallLayer);
+        wallHitRightTop = Physics2D.Raycast(rightTop,Vector2.right,0.1f,wallLayer);
+        if (wallHitLeftTop||wallHitLeftBottom||wallHitRightBottom||wallHitRightTop) 
         {            
             canMoveVelocity = false;
         }
-        if (wallHitRight)
-        {
-            canMoveVelocity = false;
-        }
 
-        if (wallHitLeft&&movement.x>0||wallHitRight&&movement.x<0||!wallHitRight&&!wallHitLeft) 
+        if ((wallHitLeftTop||wallHitLeftBottom)&&movement.x>0||(wallHitRightTop||wallHitRightBottom)&&movement.x<0||(!wallHitRightTop&&!wallHitLeftTop&&!wallHitLeftTop&&!wallHitRightBottom)) 
         {
             canMoveVelocity = true;            
         }
@@ -283,5 +291,11 @@ public class PlayerS : MonoBehaviour
         Gizmos.DrawWireSphere(bottom, 0.1f);
         Gizmos.DrawWireSphere(left, 0.1f);
         Gizmos.DrawWireSphere(right, 0.1f);
+        Gizmos.DrawWireSphere(rightTop, 0.1f);
+        Gizmos.DrawWireSphere(rightBottom, 0.1f);
+        Gizmos.DrawWireSphere(leftTop, 0.1f);
+        Gizmos.DrawWireSphere(leftBottom, 0.1f);
+
+        Gizmos.DrawRay(leftTop, Vector2.left);
     }
 }
