@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 public class Cat_Food : MonoBehaviour
@@ -21,6 +22,12 @@ public class Cat_Food : MonoBehaviour
     private void Awake()
     {
 
+    }
+
+    private void Start()
+    {
+        //对PlayerS的事件进行注册
+        //PlayerS.OnCatFoodGenerated += HandlePlayerSFoodGenerate;
     }
 
     private void Update()
@@ -128,7 +135,13 @@ public class Cat_Food : MonoBehaviour
 
     //    }
     //}
-    
+
+    void HandlePlayerSFoodGenerate(GameObject gameObject) 
+    {
+        //gameObject = GameObject.Find("Player");
+        Debug.Log(gameObject.name);
+        Debug.Log("我被PlayerS生成的事件触发了");
+    }
 
     private void OnDrawGizmos()
     {
