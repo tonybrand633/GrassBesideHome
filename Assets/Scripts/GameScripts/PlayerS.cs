@@ -11,6 +11,7 @@ public class PlayerS : MonoBehaviour
     public float sprintSpeed = 10.0f;  // 加速移动速度    
     public float currentSpeed;  // 当前速度
     public Vector2 jumpForce = new Vector2(0, 10f);
+    public float yVelocity;
     
 
     //输入变量
@@ -76,9 +77,8 @@ public class PlayerS : MonoBehaviour
     {
         GetInput();
         StateMachineCondition();
-        playerStateMachine.Update();
         DetectPlayerAround();
-
+        playerStateMachine.Update();
     }
     void FixedUpdate()
     {
@@ -115,8 +115,11 @@ public class PlayerS : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
+            
             playerStateMachine.TransitionState(jumpState);
         }
+        yVelocity = rb2d.velocity.y;
+        Debug.Log(yVelocity);
     }
 
     public void SetAnimation()

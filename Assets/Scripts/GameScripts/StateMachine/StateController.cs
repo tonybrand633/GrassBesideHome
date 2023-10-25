@@ -52,6 +52,7 @@ public class IdleState : State<PlayerS>
 
     public override void Update()
     {
+        //Debug.Log("正在持续Idle");
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
     }
 }
@@ -91,10 +92,12 @@ public class JumpState : State<PlayerS>
     public override void Enter()
     {
         context.SetAnimationBool("isJump", true);
+        context.SetAnimationBool("isGround", false);
     }
 
     public override void Update()
     {
-        context.SetAnimationBool("isGround", false);
+        context.SetAniamtionValue("yVelocity", context.yVelocity);
+        //context.SetAnimationBool("isGround", false);
     }
 }
