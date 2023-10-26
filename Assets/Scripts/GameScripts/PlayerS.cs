@@ -257,18 +257,53 @@ public class PlayerS : MonoBehaviour
 
     void CheckForWall() 
     {
-        RaycastHit2D wallHitLeftTop, wallHitLeftBottom, wallHitRightTop, wallHitRightBottom;
+        RaycastHit2D wallHitLeftTop, wallHitLeftBottom, wallHitRightTop, wallHitRightBottom,wallHitRight,wallHitLeft;
         wallHitLeftTop = Physics2D.Raycast(leftTop, Vector2.left, 0.1f,wallLayer);
         wallHitLeftBottom = Physics2D.Raycast(leftBottom,Vector2.left,0.1f,wallLayer);
         wallHitRightBottom = Physics2D.Raycast(rightBottom,Vector2.right,0.1f,wallLayer);
         wallHitRightTop = Physics2D.Raycast(rightTop,Vector2.right,0.1f,wallLayer);
+        wallHitLeft = Physics2D.Raycast(left,Vector2.left,0.1f,wallLayer);
+        wallHitRight = Physics2D.Raycast(right, Vector2.right, 0.1f, wallLayer);
         if (wallHitLeftTop||wallHitLeftBottom||wallHitRightBottom||wallHitRightTop) 
         {            
             canMoveVelocity = false;
         }
 
-        if ((wallHitLeftTop||wallHitLeftBottom)&&movement.x>0||(wallHitRightTop||wallHitRightBottom)&&movement.x<0||(!wallHitRightTop&&!wallHitLeftTop&&!wallHitLeftTop&&!wallHitRightBottom)) 
+        if (((wallHitLeftTop||wallHitLeftBottom||wallHitLeft)&&movement.x>0)||((wallHitRightTop||wallHitRightBottom||wallHitRight)&&movement.x<0)||(!wallHitRightTop&&!wallHitLeftTop&&!wallHitLeftBottom&&!wallHitRightBottom&&!wallHitLeft&&!wallHitRight)) 
         {
+            bool leftbool = ((wallHitLeftTop || wallHitLeftBottom||wallHitLeft) && movement.x > 0);
+            bool rightbool = ((wallHitRightTop || wallHitRightBottom||wallHitRight) && movement.x < 0);
+            bool allbool = (!wallHitRightTop && !wallHitLeftTop && !wallHitLeftTop && !wallHitRightBottom&&!wallHitLeft&&!wallHitRight);
+
+            if (wallHitLeftTop.collider!=null) 
+            {
+                Debug.Log(wallHitLeftTop.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
+            }
+            if (wallHitLeftBottom.collider != null)
+            {
+                Debug.Log(wallHitLeftBottom.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
+            }
+            if (wallHitRightTop.collider != null)
+            {
+                Debug.Log(wallHitRightTop.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
+            }
+            if (wallHitRightBottom.collider != null)
+            {
+                Debug.Log(wallHitRightBottom.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
+            }
+
             canMoveVelocity = true;            
         }
     }
