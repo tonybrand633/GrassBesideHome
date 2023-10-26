@@ -231,13 +231,14 @@ public class PlayerS : MonoBehaviour
 
     void CheckForGround() 
     {
-        RaycastHit2D groundHitL,groundHitR,groundHitCenter,groundHitCrossR,groundHitCrossL;
+        RaycastHit2D groundHitL,groundHitR,groundHitCenter,groundHitCenterCrossR,groundHitCenterCrossL;
         groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, 0.1f, groundLayer);
         groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, 0.1f, groundLayer);
         groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, 0.1f, groundLayer);
-        //groundHitCrossL = Physics2D.Raycast(leftBottom, rightBottom + Vector2.down, 0.1f, groundLayer);
+        groundHitCenterCrossR = Physics2D.Raycast(bottom, Vector2.down+Vector2.right, 0.1f, groundLayer);
+        groundHitCenterCrossL = Physics2D.Raycast(bottom, Vector2.down + Vector2.left, 0.1f, groundLayer);
 
-        if (groundHitL||groundHitR||groundHitCenter)
+        if (groundHitL||groundHitR||groundHitCenter||groundHitCenterCrossL||groundHitCenterCrossR)
         {
             if (Mathf.Abs(movement.x) > 0)
             {
