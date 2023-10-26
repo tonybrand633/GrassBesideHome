@@ -86,7 +86,7 @@ public class PlayeMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(detectPoint, Vector3.one*0.1f);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawCube(detectPoint, Vector3.one*0.1f);
     }
 }

@@ -55,6 +55,14 @@ public class IdleState : State<PlayerS>
     {
         //Debug.Log("正在持续Idle");
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
+        //if (context.groundCount < 2)
+        //{
+        //    context.col.enabled = false;
+        //}
+        //else
+        //{
+        //    context.col.enabled = true;
+        //}
     }
 }
 
@@ -78,6 +86,14 @@ public class RunState : State<PlayerS>
     public override void Update() 
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
+        //if (context.groundCount < 2)
+        //{
+        //    context.col.enabled = false;
+        //}
+        //else
+        //{
+        //    context.col.enabled = true;
+        //}
     }
 }
 
@@ -102,5 +118,6 @@ public class JumpState : State<PlayerS>
     {
         context.SetAniamtionValue("yVelocity", context.yVelocity);
         //context.SetAnimationBool("isGround", false);
+        
     }
 }

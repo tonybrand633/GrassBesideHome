@@ -162,6 +162,6 @@ public class Cat : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, detect_Radius);
+        //Gizmos.DrawWireSphere(transform.position, detect_Radius);
     }
 }

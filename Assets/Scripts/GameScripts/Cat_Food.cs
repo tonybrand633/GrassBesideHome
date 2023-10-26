@@ -145,6 +145,6 @@ public class Cat_Food : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);        
+        //Gizmos.DrawWireSphere(transform.position, detectionRadius);        
     }
 }
