@@ -12,7 +12,9 @@ public class PlayerS : MonoBehaviour
     public float currentSpeed;  // 当前速度
     public Vector2 jumpForce = new Vector2(0, 10f);
     public float yVelocity;
-    public float baseDetectDis = 0.05f;
+    public float groundDetectDis = 0.05f;
+    public float wallDetectDis = 0.1f;
+    
     
     //输入变量
     float moveHorizontal;
@@ -236,11 +238,11 @@ public class PlayerS : MonoBehaviour
 
     void CheckForGround() 
     {
-        groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, baseDetectDis, groundLayer);
-        groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, baseDetectDis, groundLayer);
-        groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, baseDetectDis, groundLayer);
-        groundHitCenterCrossR = Physics2D.Raycast(bottom, Vector2.down+Vector2.right, baseDetectDis, groundLayer);
-        groundHitCenterCrossL = Physics2D.Raycast(bottom, Vector2.down + Vector2.left, baseDetectDis, groundLayer);
+        groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, groundDetectDis, groundLayer);
+        groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, groundDetectDis, groundLayer);
+        groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, groundDetectDis, groundLayer);
+        //groundHitCenterCrossR = Physics2D.Raycast(bottom, Vector2.down+Vector2.right, groundDetectDis, groundLayer);
+        //groundHitCenterCrossL = Physics2D.Raycast(bottom, Vector2.down + Vector2.left, groundDetectDis, groundLayer);
 
         groundCheck = new bool[3] { groundHitL, groundHitR, groundHitCenter };
 
@@ -250,9 +252,15 @@ public class PlayerS : MonoBehaviour
             if (groundCheck[i]) groundCount++;
         }
 
+        //RaycastHit2D boxHit = Physics2D.BoxCast(new Vector2(bottom.x, bottom.y + 0.1f), new Vector2(colBounds.size.x, 0.1f), 0, Vector2.down, 0.1f,groundLayer);
+        //if (boxHit.collider!=null) 
+        //{
+        //    Debug.Log(boxHit.collider.gameObject.name);
+        //}
+
         
 
-        if ((groundHitL||groundHitR||groundHitCenter||groundHitCenterCrossL||groundHitCenterCrossR))
+        if ((groundHitL||groundHitR||groundHitCenter))
         {
             isGround = true;
             if (Mathf.Abs(movement.x) > 0)
@@ -284,12 +292,12 @@ public class PlayerS : MonoBehaviour
 
     void CheckForWall() 
     {
-        wallHitLeftTop = Physics2D.Raycast(leftTop, Vector2.left, baseDetectDis,wallLayer);
-        wallHitLeftBottom = Physics2D.Raycast(leftBottom,Vector2.left,baseDetectDis,wallLayer);
-        wallHitRightBottom = Physics2D.Raycast(rightBottom,Vector2.right,baseDetectDis,wallLayer);
-        wallHitRightTop = Physics2D.Raycast(rightTop,Vector2.right,baseDetectDis,wallLayer);
-        wallHitLeft = Physics2D.Raycast(left,Vector2.left,baseDetectDis,wallLayer);
-        wallHitRight = Physics2D.Raycast(right, Vector2.right, baseDetectDis, wallLayer);
+        wallHitLeftTop = Physics2D.Raycast(leftTop, Vector2.left, wallDetectDis,wallLayer);
+        wallHitLeftBottom = Physics2D.Raycast(leftBottom,Vector2.left,wallDetectDis,wallLayer);
+        wallHitRightBottom = Physics2D.Raycast(rightBottom,Vector2.right,wallDetectDis,wallLayer);
+        wallHitRightTop = Physics2D.Raycast(rightTop,Vector2.right, wallDetectDis, wallLayer);
+        wallHitLeft = Physics2D.Raycast(left,Vector2.left, wallDetectDis, wallLayer);
+        wallHitRight = Physics2D.Raycast(right, Vector2.right, wallDetectDis, wallLayer);
         if (wallHitLeftTop||wallHitLeftBottom||wallHitRightBottom||wallHitRightTop) 
         {            
             canMoveVelocity = false;
@@ -342,14 +350,14 @@ public class PlayerS : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(top, baseDetectDis);
-        Gizmos.DrawWireSphere(bottom, baseDetectDis);
-        Gizmos.DrawWireSphere(left, baseDetectDis);
-        Gizmos.DrawWireSphere(right, baseDetectDis);
-        Gizmos.DrawWireSphere(rightTop, baseDetectDis);
-        Gizmos.DrawWireSphere(rightBottom, baseDetectDis);
-        Gizmos.DrawWireSphere(leftTop, baseDetectDis);
-        Gizmos.DrawWireSphere(leftBottom, baseDetectDis);
+        Gizmos.DrawWireSphere(top, groundDetectDis);
+        Gizmos.DrawWireSphere(bottom, groundDetectDis);
+        Gizmos.DrawWireSphere(left, groundDetectDis);
+        Gizmos.DrawWireSphere(right, groundDetectDis);
+        Gizmos.DrawWireSphere(rightTop, groundDetectDis);
+        Gizmos.DrawWireSphere(rightBottom, groundDetectDis);
+        Gizmos.DrawWireSphere(leftTop, groundDetectDis);
+        Gizmos.DrawWireSphere(leftBottom, groundDetectDis);
 
         //Gizmos.DrawRay(leftBottom, Vector2.down+rightBottom);
     }

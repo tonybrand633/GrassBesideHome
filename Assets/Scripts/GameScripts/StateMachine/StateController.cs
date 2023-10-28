@@ -109,6 +109,7 @@ public class JumpState : State<PlayerS>
 
     public override void Enter()
     {
+        context.isGround = false;
         context.isJumping = true;
         context.SetAnimationBool("isJump", true);
         context.SetAnimationBool("isGround", false);

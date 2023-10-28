@@ -284,7 +284,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06246674, y: 0.42739832}
+  m_Offset: {x: -0.06246674, y: 0.44840613}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -295,7 +295,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.4349082, y: 0.12}
+  m_Size: {x: 3.4349082, y: 0.07798439}
   m_EdgeRadius: 0
 --- !u!1 &174068132
 GameObject:
@@ -444,7 +444,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08280516, y: -0.043506145}
+  m_Offset: {x: 0.08280516, y: -0.04866594}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -455,7 +455,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.08578396, y: 0.9129877}
+  m_Size: {x: 0.08578396, y: 0.9026681}
   m_EdgeRadius: 0
 --- !u!1 &363113552
 GameObject:
@@ -768,7 +768,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0004658103, y: -0.045868456}
+  m_Offset: {x: -0.0064092875, y: -0.045868456}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -779,7 +779,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21033251, y: 0.9082631}
+  m_Size: {x: 0.19844556, y: 0.9082631}
   m_EdgeRadius: 0
 --- !u!1 &1154802558
 GameObject:
@@ -1014,7 +1014,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08689213, y: -0.3138497}
+  m_Offset: {x: 0.0933373, y: -0.3138497}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1025,7 +1025,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.4311247, y: 0.12}
+  m_Size: {x: 4.444015, y: 0.120000005}
   m_EdgeRadius: 0
 --- !u!1 &1409640286
 GameObject:
