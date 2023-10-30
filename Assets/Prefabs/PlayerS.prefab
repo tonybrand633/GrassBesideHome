@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 3
   m_AngularDrag: 0.05
-  m_GravityScale: 9.8
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -122,12 +122,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  sprintSpeed: 8
+  sprintSpeed: 10
   currentSpeed: 0
-  jumpForce: {x: 0, y: 10}
+  jumpForce: {x: 0, y: 25}
+  yVelocity: 0
+  groundDetectDis: 0.05
+  wallDetectDis: 0.1
   movement: {x: 0, y: 0, z: 0}
   catFood: {fileID: 7302565380919710088, guid: b6cb40ac4f49732449e9c57c6293b2bd, type: 3}
   isWalkMode: 1
+  canMoveVelocity: 0
+  isJumping: 0
+  isGround: 0
+  groundCheckOffset: 0.15
+  groundCount: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 16384
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!95 &720237191290858815
 Animator:
   serializedVersion: 5

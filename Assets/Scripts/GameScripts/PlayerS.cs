@@ -14,9 +14,14 @@ public class PlayerS : MonoBehaviour
     public float yVelocity;
     public float groundDetectDis = 0.05f;
     public float wallDetectDis = 0.1f;
-    
-    
+    public float attackStartTime;
+    public float attackIntervalNow;
+    public float attackInterval = 0.25f;
+    public int attackCount;
+
+
     //输入变量
+    [Header("输入变量")]
     float moveHorizontal;
     float moveVertical;
     public Vector3 movement;
@@ -24,27 +29,32 @@ public class PlayerS : MonoBehaviour
     //角色组件
     Rigidbody2D rb2d;
     public GameObject catFood;
-    Animator anim;
+    public Animator anim;
     SpriteRenderer sr;
     BoxCollider2D col;
 
     //角色状态
+    [Header("角色状态")]
     public bool isWalkMode;
     public bool canMoveVelocity;
     public bool isJumping;
     public bool isGround;
+    public bool isAttack;
 
     //状态机
     public StateController<PlayerS> playerStateMachine;
     IdleState idleState;
     RunState runState;
     JumpState jumpState;
+    AttackState attackState;
 
 
     //事件
     public static event Action<GameObject> OnCatFoodGenerated;
 
+    [Header("角色检测")]
     //角色自定义检测
+    public float groundCheckOffset;
     public float groundCount;
     Bounds colBounds;
     Vector2 top;
@@ -57,7 +67,7 @@ public class PlayerS : MonoBehaviour
     Vector2 left;
     public LayerMask wallLayer;
     public LayerMask groundLayer;
-    RaycastHit2D groundHitL, groundHitR, groundHitCenter, groundHitCenterCrossR, groundHitCenterCrossL;
+    RaycastHit2D groundHitL, groundHitR, groundHitCenter, groundHitCenterNextL, groundHitCenterNextR;
     RaycastHit2D wallHitLeftTop, wallHitLeftBottom, wallHitRightTop, wallHitRightBottom, wallHitRight, wallHitLeft;
     bool[] groundCheck;
 
@@ -76,6 +86,7 @@ public class PlayerS : MonoBehaviour
         idleState = new IdleState(this);
         runState = new RunState(this);
         jumpState = new JumpState(this);
+        attackState = new AttackState(this);
 
         // 开始时设定当前速度为正常移动速度
         currentSpeed = moveSpeed;
@@ -102,15 +113,15 @@ public class PlayerS : MonoBehaviour
     void StateMachineCondition()
     {
         //判断角色的速度
-        if (Mathf.Abs(movement.x) > 0.1&&playerStateMachine.currentState!=jumpState)
-        {
-            playerStateMachine.TransitionState(runState);
-        }
+        //if (Mathf.Abs(movement.x) > 0.1&&playerStateMachine.currentState!=jumpState)
+        //{
+        //    playerStateMachine.TransitionState(runState);
+        //}
 
-        if (movement.x == 0)
-        {
-            playerStateMachine.TransitionState(idleState);
-        }
+        //if (movement.x == 0&&playerStateMachine.currentState!=attackState)
+        //{
+        //    playerStateMachine.TransitionState(idleState);
+        //}
 
         //判断并控制角色的朝向
         if (movement.x > 0)
@@ -121,14 +132,7 @@ public class PlayerS : MonoBehaviour
         {
             sr.flipX = true;
         }
-
-
         yVelocity = rb2d.velocity.y;
-    }
-
-    public void SetAnimation()
-    {
-
     }
 
     public void SetAniamtionTrigger(string trigger)
@@ -193,10 +197,32 @@ public class PlayerS : MonoBehaviour
         //判断角色的跳跃,判断是否按下空格
         if (Input.GetKeyDown(KeyCode.Space)&&!isJumping)
         {
-
             rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
             playerStateMachine.TransitionState(jumpState);
         }
+
+
+        //判断角色攻击，按下鼠标左键
+
+        attackIntervalNow = Time.time - attackStartTime;
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            playerStateMachine.TransitionState(attackState);
+            //attackStartTime = Time.time;
+            //if (attackCount == 0)
+            //{
+            //    SetAniamtionTrigger("Attack");
+            //    attackCount++;
+            //}
+            //else 
+            //{
+            //    if (attackIntervalNow < attackInterval)
+            //    {
+            //        SetAniamtionTrigger("Attack");
+            //        attackCount++;
+            //    }
+            //}            
+        }        
     }
 
     void MovePlayer()
@@ -241,10 +267,10 @@ public class PlayerS : MonoBehaviour
         groundHitL = Physics2D.Raycast(leftBottom, Vector2.down, groundDetectDis, groundLayer);
         groundHitR = Physics2D.Raycast(rightBottom, Vector2.down, groundDetectDis, groundLayer);
         groundHitCenter = Physics2D.Raycast(bottom, Vector2.down, groundDetectDis, groundLayer);
-        //groundHitCenterCrossR = Physics2D.Raycast(bottom, Vector2.down+Vector2.right, groundDetectDis, groundLayer);
-        //groundHitCenterCrossL = Physics2D.Raycast(bottom, Vector2.down + Vector2.left, groundDetectDis, groundLayer);
+        groundHitCenterNextR = Physics2D.Raycast(new Vector2(bottom.x+groundCheckOffset,bottom.y), Vector2.down, groundDetectDis, groundLayer);
+        groundHitCenterNextL = Physics2D.Raycast(new Vector2(bottom.x-groundCheckOffset, bottom.y), Vector2.down, groundDetectDis, groundLayer);
 
-        groundCheck = new bool[3] { groundHitL, groundHitR, groundHitCenter };
+        groundCheck = new bool[5] { groundHitL, groundHitR, groundHitCenter ,groundHitCenterNextL,groundHitCenterNextR};
 
         groundCount = 0;
         for (int i = 0; i < groundCheck.Length; i++)
@@ -258,15 +284,15 @@ public class PlayerS : MonoBehaviour
         //    Debug.Log(boxHit.collider.gameObject.name);
         //}
 
-        
 
-        if ((groundHitL||groundHitR||groundHitCenter))
+
+        if ((groundHitL||groundHitR||groundHitCenter||groundHitCenterNextL||groundHitCenterNextR))
         {
             isGround = true;
             if (Mathf.Abs(movement.x) > 0)
             {
                 playerStateMachine.TransitionState(runState);
-            } else if (movement.x == 0) 
+            } else if (movement.x == 0&&playerStateMachine.currentState!=attackState) 
             {
                 playerStateMachine.TransitionState(idleState);
             }
@@ -302,6 +328,7 @@ public class PlayerS : MonoBehaviour
         {            
             canMoveVelocity = false;
         }
+        
 
         if (((wallHitLeftTop||wallHitLeftBottom||wallHitLeft)&&movement.x>0)||((wallHitRightTop||wallHitRightBottom||wallHitRight)&&movement.x<0)||(!wallHitRightTop&&!wallHitLeftTop&&!wallHitLeftBottom&&!wallHitRightBottom&&!wallHitLeft&&!wallHitRight)) 
         {
@@ -312,22 +339,32 @@ public class PlayerS : MonoBehaviour
             bool allbool = (!wallHitRightTop && !wallHitLeftTop && !wallHitLeftTop && !wallHitRightBottom&&!wallHitLeft&&!wallHitRight);
             if (wallHitLeftTop.collider!=null) 
             {
-                //Debug.Log(wallHitLeftTop.collider.gameObject.name);
-                //Debug.Log("leftbool: " + leftbool);
-                //Debug.Log("rightbool: " + rightbool);
-                //Debug.Log("allbool: " + allbool);
+                Debug.Log(wallHitLeftTop.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
             }
             if (wallHitLeftBottom.collider != null)
             {
-                                
+                Debug.Log(wallHitLeftBottom.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
             }
             if (wallHitRightTop.collider != null)
             {
-                
+                Debug.Log(wallHitRightTop.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
+
             }
             if (wallHitRightBottom.collider != null)
             {
-
+                Debug.Log(wallHitRightBottom.collider.gameObject.name);
+                Debug.Log("leftbool: " + leftbool);
+                Debug.Log("rightbool: " + rightbool);
+                Debug.Log("allbool: " + allbool);
             }         
         }
     }
@@ -358,6 +395,8 @@ public class PlayerS : MonoBehaviour
         Gizmos.DrawWireSphere(rightBottom, groundDetectDis);
         Gizmos.DrawWireSphere(leftTop, groundDetectDis);
         Gizmos.DrawWireSphere(leftBottom, groundDetectDis);
+        Gizmos.DrawWireSphere(new Vector2(bottom.x + groundCheckOffset,bottom.y), groundDetectDis);
+        Gizmos.DrawWireSphere(new Vector2(bottom.x - groundCheckOffset, bottom.y), groundDetectDis);
 
         //Gizmos.DrawRay(leftBottom, Vector2.down+rightBottom);
     }
