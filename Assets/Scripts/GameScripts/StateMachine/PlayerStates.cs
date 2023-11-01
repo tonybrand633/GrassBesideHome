@@ -104,16 +104,19 @@ public class AttackState : State<PlayerS>
     public override void Update()
     {
         exitTime = context.anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        Debug.Log("ExitTime: " + exitTime);
+        context.canMoveVelocity = false;
         Debug.Log("Attacking");
-        if (exitTime == 1) 
+        if (exitTime > 1) 
         {
-            this.Exit();
+            Exit();
         }
     }
 
     public override void Exit()
     {
-        
+        Debug.Log("Attack State Exit");
+        context.canMoveVelocity = true;
     }
 }
 

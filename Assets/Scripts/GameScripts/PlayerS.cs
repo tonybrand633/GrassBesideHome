@@ -194,7 +194,7 @@ public class PlayerS : MonoBehaviour
                 currentSpeed = moveSpeed;
             }
         }
-        //判断角色的跳跃,判断是否按下空格
+        //判断角色的跳跃,判断是否按下空格--使用isJumping判断会导致要一直增加状态,比如空中受伤，就可以判断为跳跃
         if (Input.GetKeyDown(KeyCode.Space)&&!isJumping)
         {
             rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
@@ -232,12 +232,11 @@ public class PlayerS : MonoBehaviour
         {
             rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y);            
         }
-        else
-        {
-            //跳跃模式加一个力之类的
-            //rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y + movement.y * currentSpeed);
-        }
-
+        //else
+        //{
+        //    //跳跃模式加一个力之类的
+        //    //rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y + movement.y * currentSpeed);
+        //}
         // 否则还是使用Transform来移动
         //transform.position += movement * currentSpeed * Time.deltaTime;       
     }
