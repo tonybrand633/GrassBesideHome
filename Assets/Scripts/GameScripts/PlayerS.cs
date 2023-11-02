@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerS : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerS : MonoBehaviour
     public float attackIntervalNow;
     public float attackInterval = 0.25f;
     public int attackCount;
+    public int jumpCount = 1;
 
 
     //输入变量
@@ -37,6 +39,7 @@ public class PlayerS : MonoBehaviour
     [Header("角色状态")]
     public bool isWalkMode;
     public bool canMoveVelocity;
+    public bool canJump;
     public bool isJumping;
     public bool isGround;
     public bool isAttack;
@@ -56,6 +59,7 @@ public class PlayerS : MonoBehaviour
     //角色自定义检测
     public float groundCheckOffset;
     public float groundCount;
+    public bool detectGround;
     Bounds colBounds;
     Vector2 top;
     Vector2 rightTop;
@@ -87,6 +91,7 @@ public class PlayerS : MonoBehaviour
         runState = new RunState(this);
         jumpState = new JumpState(this);
         attackState = new AttackState(this);
+        detectGround = true;
 
         // 开始时设定当前速度为正常移动速度
         currentSpeed = moveSpeed;
@@ -133,6 +138,16 @@ public class PlayerS : MonoBehaviour
             sr.flipX = true;
         }
         yVelocity = rb2d.velocity.y;
+
+        //判断角色的跳跃次数
+        if (jumpCount > 0)
+        {
+            canJump = true;
+        }
+        else 
+        {
+            canJump = false;
+        }
     }
 
     public void SetAniamtionTrigger(string trigger)
@@ -194,34 +209,22 @@ public class PlayerS : MonoBehaviour
                 currentSpeed = moveSpeed;
             }
         }
+
         //判断角色的跳跃,判断是否按下空格--使用isJumping判断会导致要一直增加状态,比如空中受伤，就可以判断为跳跃
-        if (Input.GetKeyDown(KeyCode.Space)&&!isJumping)
-        {
+        if (Input.GetKeyDown(KeyCode.Space)&&canJump)
+        {            
             rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
+            Debug.Log("Jump");
             playerStateMachine.TransitionState(jumpState);
         }
+        
 
 
         //判断角色攻击，按下鼠标左键
-
         attackIntervalNow = Time.time - attackStartTime;
         if (Input.GetMouseButtonDown(0)) 
         {
-            playerStateMachine.TransitionState(attackState);
-            //attackStartTime = Time.time;
-            //if (attackCount == 0)
-            //{
-            //    SetAniamtionTrigger("Attack");
-            //    attackCount++;
-            //}
-            //else 
-            //{
-            //    if (attackIntervalNow < attackInterval)
-            //    {
-            //        SetAniamtionTrigger("Attack");
-            //        attackCount++;
-            //    }
-            //}            
+            playerStateMachine.TransitionState(attackState);                     
         }        
     }
 
@@ -285,21 +288,26 @@ public class PlayerS : MonoBehaviour
 
 
 
-        if ((groundHitL||groundHitR||groundHitCenter||groundHitCenterNextL||groundHitCenterNextR))
+        if ((groundHitL || groundHitR || groundHitCenter || groundHitCenterNextL || groundHitCenterNextR)&&detectGround)
         {
-            isGround = true;
-            if (Mathf.Abs(movement.x) > 0)
+            if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState)
             {
                 playerStateMachine.TransitionState(runState);
-            } else if (movement.x == 0&&playerStateMachine.currentState!=attackState) 
+
+            }
+            else if (movement.x == 0 && playerStateMachine.currentState != idleState)
             {
                 playerStateMachine.TransitionState(idleState);
             }
+
         }
         //一个不经意间实现的功能，脱离地面即认为是跳跃
-        else 
+        else
         {
-            playerStateMachine.TransitionState(jumpState);            
+            if (playerStateMachine.currentState != jumpState) 
+            {
+                playerStateMachine.TransitionState(jumpState);
+            }                       
         }
         if (groundCount < 2 && isGround &&!isJumping)
         {

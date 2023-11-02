@@ -168,7 +168,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053825557, y: -0.00016474724}
+  m_Offset: {x: -0.053825557, y: -0.004779279}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -179,7 +179,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06311548, y: 0.9996705}
+  m_Size: {x: 0.06311548, y: 0.99044144}
   m_EdgeRadius: 0
 --- !u!1 &47344898
 GameObject:
@@ -226,7 +226,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013391972, y: -0.039780468}
+  m_Offset: {x: -0.013391972, y: -0.04363385}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -237,7 +237,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12570095, y: 0.9958269}
+  m_Size: {x: 0.12570095, y: 0.98812014}
   m_EdgeRadius: 0
 --- !u!1 &96139729
 GameObject:
@@ -444,7 +444,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09906936, y: 0.00030863285}
+  m_Offset: {x: 0.09906936, y: -0.0046529174}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -455,7 +455,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.055956364, y: 1.0006173}
+  m_Size: {x: 0.055956364, y: 0.99069417}
   m_EdgeRadius: 0
 --- !u!1 &363113552
 GameObject:
@@ -706,7 +706,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03245163, y: 0.0019603968}
+  m_Offset: {x: 0.03245163, y: -0.0026978254}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -717,7 +717,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.120723724, y: 1.0039208}
+  m_Size: {x: 0.120723724, y: 0.99460423}
   m_EdgeRadius: 0
 --- !u!1 &1154802558
 GameObject:

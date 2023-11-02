@@ -14,7 +14,9 @@ public class IdleState : State<PlayerS>
 
     public override void Enter()
     {
-        context.isJumping = false;
+        context.isGround = true;
+        Debug.Log("Enter Idle");
+        context.jumpCount = 1;
         context.SetAnimationBool("isGround", true);
         context.SetAnimationBool("isJump", false);
     }
@@ -22,7 +24,7 @@ public class IdleState : State<PlayerS>
     public override void Update()
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
-        Debug.Log("Idle");
+        Debug.Log("Idling");
     }
 }
 
@@ -38,9 +40,11 @@ public class RunState : State<PlayerS>
 
     public override void Enter()
     {
-        context.isJumping = false;
-        context.SetAnimationBool("isGround", true);
-        context.SetAnimationBool("isJump", false);
+        context.isGround = true;
+        Debug.Log("Enter Run");
+        context.jumpCount = 1;
+        context.SetAnimationBool("isGround", context.isGround);
+        context.SetAnimationBool("isJump", context.isJumping);
     }
 
     public override void Update()
@@ -70,16 +74,29 @@ public class JumpState : State<PlayerS>
 
     public override void Enter()
     {
+        Debug.Log("Enter Jump");
+        context.jumpCount--;
         context.isGround = false;
+        context.detectGround = false;
         context.isJumping = true;
-        context.SetAnimationBool("isJump", true);
-        context.SetAnimationBool("isGround", false);
+        context.SetAnimationBool("isJump", context.isJumping);
+        context.SetAnimationBool("isGround", context.isGround);
     }
 
     public override void Update()
     {
         context.SetAniamtionValue("yVelocity", context.yVelocity);
+        if (context.yVelocity<0) 
+        {
+            context.detectGround = true;
+        }
         Debug.Log("Jumping");
+    }
+
+    public override void Exit() 
+    {
+        context.isJumping = false;
+        context.detectGround = true;
     }
 }
 
@@ -90,6 +107,7 @@ public class JumpState : State<PlayerS>
 public class AttackState : State<PlayerS>
 {
     float exitTime;
+    AnimatorStateInfo attackStateInfo;
     public AttackState(PlayerS context) : base(context)
     {
 
@@ -98,19 +116,26 @@ public class AttackState : State<PlayerS>
     public override void Enter()
     {
         context.SetAniamtionTrigger("Attack");
+        attackStateInfo = context.anim.GetCurrentAnimatorStateInfo(0);
+        
         context.attackStartTime = Time.time;
     }
 
     public override void Update()
     {
-        exitTime = context.anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        Debug.Log("ExitTime: " + exitTime);
-        context.canMoveVelocity = false;
-        Debug.Log("Attacking");
-        if (exitTime > 1) 
+        exitTime = attackStateInfo.normalizedTime;
+        Debug.Log(exitTime);
+        if (attackStateInfo.normalizedTime>=1)
         {
-            Exit();
+            Debug.Log("Attack Done");
         }
+        else 
+        {
+            Debug.Log(attackStateInfo.fullPathHash);
+        }
+               
+        context.canMoveVelocity = false;
+        Debug.Log("Attacking");        
     }
 
     public override void Exit()
