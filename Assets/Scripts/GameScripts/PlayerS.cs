@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerS : MonoBehaviour
 {
@@ -38,11 +39,13 @@ public class PlayerS : MonoBehaviour
     //角色状态
     [Header("角色状态")]
     public bool isWalkMode;
-    public bool canMoveVelocity;
+    public bool canMoveByHitWall;
+    public bool canMoveByAttack;
     public bool canJump;
     public bool isJumping;
     public bool isGround;
     public bool isAttack;
+    public bool isFall;
 
     //状态机
     public StateController<PlayerS> playerStateMachine;
@@ -50,6 +53,7 @@ public class PlayerS : MonoBehaviour
     RunState runState;
     JumpState jumpState;
     AttackState attackState;
+    FallState fallState;
 
 
     //事件
@@ -91,7 +95,10 @@ public class PlayerS : MonoBehaviour
         runState = new RunState(this);
         jumpState = new JumpState(this);
         attackState = new AttackState(this);
+        fallState = new FallState(this);
+        
         detectGround = true;
+        canMoveByAttack = true;
 
         // 开始时设定当前速度为正常移动速度
         currentSpeed = moveSpeed;
@@ -117,17 +124,6 @@ public class PlayerS : MonoBehaviour
     /// </summary>
     void StateMachineCondition()
     {
-        //判断角色的速度
-        //if (Mathf.Abs(movement.x) > 0.1&&playerStateMachine.currentState!=jumpState)
-        //{
-        //    playerStateMachine.TransitionState(runState);
-        //}
-
-        //if (movement.x == 0&&playerStateMachine.currentState!=attackState)
-        //{
-        //    playerStateMachine.TransitionState(idleState);
-        //}
-
         //判断并控制角色的朝向
         if (movement.x > 0)
         {
@@ -144,10 +140,17 @@ public class PlayerS : MonoBehaviour
         {
             canJump = true;
         }
-        else 
+        else
         {
             canJump = false;
         }
+
+        if (yVelocity<0&&playerStateMachine.currentState!=fallState) 
+        {
+            //------进入坠落状态---------//
+            playerStateMachine.TransitionState(fallState);
+        }
+
     }
 
     public void SetAniamtionTrigger(string trigger)
@@ -214,7 +217,7 @@ public class PlayerS : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)&&canJump)
         {            
             rb2d.AddForce(jumpForce, ForceMode2D.Impulse);
-            Debug.Log("Jump");
+            //------进入跳跃状态---------//
             playerStateMachine.TransitionState(jumpState);
         }
         
@@ -224,6 +227,7 @@ public class PlayerS : MonoBehaviour
         attackIntervalNow = Time.time - attackStartTime;
         if (Input.GetMouseButtonDown(0)) 
         {
+            //------进入攻击状态---------//
             playerStateMachine.TransitionState(attackState);                     
         }        
     }
@@ -231,7 +235,7 @@ public class PlayerS : MonoBehaviour
     void MovePlayer()
     {
         // 如果使用Rigidbody2D移动，优先使用velocity属性进行移动
-        if (isWalkMode&&canMoveVelocity)
+        if (isWalkMode&&canMoveByHitWall)
         {
             rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y);            
         }
@@ -292,22 +296,23 @@ public class PlayerS : MonoBehaviour
         {
             if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState)
             {
+                //------进入跑动状态---------//
                 playerStateMachine.TransitionState(runState);
 
             }
             else if (movement.x == 0 && playerStateMachine.currentState != idleState)
             {
+                //------进入待机状态---------//
                 playerStateMachine.TransitionState(idleState);
             }
-
         }
         //一个不经意间实现的功能，脱离地面即认为是跳跃
         else
         {
-            if (playerStateMachine.currentState != jumpState) 
-            {
-                playerStateMachine.TransitionState(jumpState);
-            }                       
+            //if (playerStateMachine.currentState != jumpState&&canMoveByAttack) 
+            //{
+            //    playerStateMachine.TransitionState(jumpState);
+            //}                       
         }
         if (groundCount < 2 && isGround &&!isJumping)
         {
@@ -333,45 +338,45 @@ public class PlayerS : MonoBehaviour
         wallHitRight = Physics2D.Raycast(right, Vector2.right, wallDetectDis, wallLayer);
         if (wallHitLeftTop||wallHitLeftBottom||wallHitRightBottom||wallHitRightTop) 
         {            
-            canMoveVelocity = false;
+            canMoveByHitWall = false;
         }
         
 
         if (((wallHitLeftTop||wallHitLeftBottom||wallHitLeft)&&movement.x>0)||((wallHitRightTop||wallHitRightBottom||wallHitRight)&&movement.x<0)||(!wallHitRightTop&&!wallHitLeftTop&&!wallHitLeftBottom&&!wallHitRightBottom&&!wallHitLeft&&!wallHitRight)) 
         {
-            canMoveVelocity = true;
+            canMoveByHitWall = true;
 
             bool leftbool = ((wallHitLeftTop || wallHitLeftBottom||wallHitLeft) && movement.x > 0);
             bool rightbool = ((wallHitRightTop || wallHitRightBottom||wallHitRight) && movement.x < 0);
             bool allbool = (!wallHitRightTop && !wallHitLeftTop && !wallHitLeftTop && !wallHitRightBottom&&!wallHitLeft&&!wallHitRight);
             if (wallHitLeftTop.collider!=null) 
             {
-                Debug.Log(wallHitLeftTop.collider.gameObject.name);
-                Debug.Log("leftbool: " + leftbool);
-                Debug.Log("rightbool: " + rightbool);
-                Debug.Log("allbool: " + allbool);
+                //Debug.Log(wallHitLeftTop.collider.gameObject.name);
+                //Debug.Log("leftbool: " + leftbool);
+                //Debug.Log("rightbool: " + rightbool);
+                //Debug.Log("allbool: " + allbool);
             }
             if (wallHitLeftBottom.collider != null)
             {
-                Debug.Log(wallHitLeftBottom.collider.gameObject.name);
-                Debug.Log("leftbool: " + leftbool);
-                Debug.Log("rightbool: " + rightbool);
-                Debug.Log("allbool: " + allbool);
+                //Debug.Log(wallHitLeftBottom.collider.gameObject.name);
+                //Debug.Log("leftbool: " + leftbool);
+                //Debug.Log("rightbool: " + rightbool);
+                //Debug.Log("allbool: " + allbool);
             }
             if (wallHitRightTop.collider != null)
             {
-                Debug.Log(wallHitRightTop.collider.gameObject.name);
-                Debug.Log("leftbool: " + leftbool);
-                Debug.Log("rightbool: " + rightbool);
-                Debug.Log("allbool: " + allbool);
+                //Debug.Log(wallHitRightTop.collider.gameObject.name);
+                //Debug.Log("leftbool: " + leftbool);
+                //Debug.Log("rightbool: " + rightbool);
+                //Debug.Log("allbool: " + allbool);
 
             }
             if (wallHitRightBottom.collider != null)
             {
-                Debug.Log(wallHitRightBottom.collider.gameObject.name);
-                Debug.Log("leftbool: " + leftbool);
-                Debug.Log("rightbool: " + rightbool);
-                Debug.Log("allbool: " + allbool);
+                //Debug.Log(wallHitRightBottom.collider.gameObject.name);
+                //Debug.Log("leftbool: " + leftbool);
+                //Debug.Log("rightbool: " + rightbool);
+                //Debug.Log("allbool: " + allbool);
             }         
         }
     }

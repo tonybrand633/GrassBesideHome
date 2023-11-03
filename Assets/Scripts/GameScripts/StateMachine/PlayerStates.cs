@@ -24,7 +24,7 @@ public class IdleState : State<PlayerS>
     public override void Update()
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
-        Debug.Log("Idling");
+        //Debug.Log("Idling");
     }
 }
 
@@ -50,7 +50,7 @@ public class RunState : State<PlayerS>
     public override void Update()
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
-        Debug.Log("Runing");
+        //Debug.Log("Runing");
         //if (context.groundCount < 2)
         //{
         //    context.col.enabled = false;
@@ -85,18 +85,40 @@ public class JumpState : State<PlayerS>
 
     public override void Update()
     {
-        context.SetAniamtionValue("yVelocity", context.yVelocity);
-        if (context.yVelocity<0) 
-        {
-            context.detectGround = true;
-        }
-        Debug.Log("Jumping");
+        context.SetAniamtionValue("yVelocity", context.yVelocity);        
     }
 
     public override void Exit() 
     {
-        context.isJumping = false;
+                
+    }
+}
+
+public class FallState : State<PlayerS>
+{
+    public FallState(PlayerS context) : base(context)
+    {
+
+    }
+
+    public override void Enter() 
+    {
+        Debug.Log("Enter Fall");
+    }
+
+    public override void Update()
+    {
+        context.isFall = true;
+        context.SetAniamtionValue("yVelocity", context.yVelocity);
+        context.SetAnimationBool("isFall", context.isFall);
         context.detectGround = true;
+    }
+
+    public override void Exit()
+    {
+        context.isFall = false;
+        context.isJumping = false;
+        context.SetAnimationBool("isFall", context.isFall);
     }
 }
 
@@ -115,33 +137,19 @@ public class AttackState : State<PlayerS>
 
     public override void Enter()
     {
+        Debug.Log("Enter Attack");
+        context.canMoveByAttack = false;
         context.SetAniamtionTrigger("Attack");
-        attackStateInfo = context.anim.GetCurrentAnimatorStateInfo(0);
-        
-        context.attackStartTime = Time.time;
     }
 
     public override void Update()
     {
-        exitTime = attackStateInfo.normalizedTime;
-        Debug.Log(exitTime);
-        if (attackStateInfo.normalizedTime>=1)
-        {
-            Debug.Log("Attack Done");
-        }
-        else 
-        {
-            Debug.Log(attackStateInfo.fullPathHash);
-        }
-               
-        context.canMoveVelocity = false;
-        Debug.Log("Attacking");        
+        Debug.Log("Attacking");          
     }
 
     public override void Exit()
     {
-        Debug.Log("Attack State Exit");
-        context.canMoveVelocity = true;
+        context.canMoveByAttack = true;
     }
 }
 
