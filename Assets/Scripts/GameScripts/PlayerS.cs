@@ -159,7 +159,7 @@ public class PlayerS : MonoBehaviour
             canJump = false;
         }
 
-        if (yVelocity<0&&playerStateMachine.currentState!=fallState) 
+        if (yVelocity<0&&playerStateMachine.currentState!=fallState&&playerStateMachine.currentState!=idleState) 
         {
             //------½øÈë×¹Âä×´Ì¬---------//
             playerStateMachine.TransitionState(fallState);
