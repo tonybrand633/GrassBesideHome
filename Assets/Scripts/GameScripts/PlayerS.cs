@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static AttackState_01;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerS : MonoBehaviour
@@ -17,10 +18,12 @@ public class PlayerS : MonoBehaviour
     public float groundDetectDis = 0.05f;
     public float wallDetectDis = 0.1f;
     public float attackStartTime;
-    public float attackIntervalNow;
-    public float attackInterval = 0.25f;
+    public float lastAttckTime = -Mathf.Infinity;
+    public float attackCoolDown = 0.25f;
+    public float timeSinceLastAttack;
     public int attackCount;
     public int jumpCount = 1;
+    
 
 
     //输入变量
@@ -40,19 +43,25 @@ public class PlayerS : MonoBehaviour
     [Header("角色状态")]
     public bool isWalkMode;
     public bool canMoveByHitWall;
+    public bool isAttacking;
     public bool canMoveByAttack;
     public bool canJump;
     public bool isJumping;
     public bool isGround;
     public bool isAttack;
     public bool isFall;
+    public bool eventTrigger1 = false;
+    public bool eventTrigger2 = false;
+    public bool eventTrigger3 = false;
 
     //状态机
     public StateController<PlayerS> playerStateMachine;
     IdleState idleState;
     RunState runState;
     JumpState jumpState;
-    AttackState attackState;
+    AttackState_01 attackState_01;
+    AttackState_02 attackState_02;
+    AttackState_03 attackState_03;
     FallState fallState;
 
 
@@ -94,7 +103,9 @@ public class PlayerS : MonoBehaviour
         idleState = new IdleState(this);
         runState = new RunState(this);
         jumpState = new JumpState(this);
-        attackState = new AttackState(this);
+        attackState_01 = new AttackState_01(this);
+        attackState_02 = new AttackState_02(this);
+        attackState_03 = new AttackState_03(this);
         fallState = new FallState(this);
         
         detectGround = true;
@@ -112,6 +123,7 @@ public class PlayerS : MonoBehaviour
         GetInput();
         StateMachineCondition();
         DetectPlayerAround();
+        //AttackCondition();
         playerStateMachine.Update();
     }
     void FixedUpdate()
@@ -220,22 +232,34 @@ public class PlayerS : MonoBehaviour
             //------进入跳跃状态---------//
             playerStateMachine.TransitionState(jumpState);
         }
-        
 
 
-        //判断角色攻击，按下鼠标左键
-        attackIntervalNow = Time.time - attackStartTime;
+
+        //判断角色攻击，按下鼠标左键        
         if (Input.GetMouseButtonDown(0)) 
-        {
+        {            
+            timeSinceLastAttack = Time.time - lastAttckTime;
             //------进入攻击状态---------//
-            playerStateMachine.TransitionState(attackState);                     
+            if (lastAttckTime == -Mathf.Infinity && attackCount == 0)
+            {
+                playerStateMachine.TransitionState(attackState_01);
+                lastAttckTime = Time.time;
+            }
+            else if (attackCount == 1 && timeSinceLastAttack >= attackCoolDown)
+            {
+                playerStateMachine.TransitionState(attackState_02);
+                lastAttckTime = Time.time;
+            } else if (attackCount == 2 && timeSinceLastAttack>= attackCoolDown) 
+            {
+                playerStateMachine.TransitionState(attackState_03);
+                lastAttckTime = Time.time;
+            } 
         }        
     }
 
     void MovePlayer()
     {
-        // 如果使用Rigidbody2D移动，优先使用velocity属性进行移动
-        if (isWalkMode&&canMoveByHitWall)
+        if (isWalkMode&&canMoveByHitWall&&canMoveByAttack)
         {
             rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y);            
         }
@@ -294,14 +318,14 @@ public class PlayerS : MonoBehaviour
 
         if ((groundHitL || groundHitR || groundHitCenter || groundHitCenterNextL || groundHitCenterNextR)&&detectGround)
         {
-            if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState)
+            if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState&&!isAttacking)
             {
                 //------进入跑动状态---------//
                 playerStateMachine.TransitionState(runState);
 
             }
-            else if (movement.x == 0 && playerStateMachine.currentState != idleState)
-            {
+            else if (movement.x == 0 && playerStateMachine.currentState != idleState&&!isAttacking)
+            {                                
                 //------进入待机状态---------//
                 playerStateMachine.TransitionState(idleState);
             }
@@ -313,12 +337,7 @@ public class PlayerS : MonoBehaviour
             //{
             //    playerStateMachine.TransitionState(jumpState);
             //}                       
-        }
-        if (groundCount < 2 && isGround &&!isJumping)
-        {
-            //col.enabled = false;
-            //StartCoroutine(EnableNextFrame());
-        } 
+        }         
     }
 
     //IEnumerator EnableNextFrame() 
@@ -380,6 +399,33 @@ public class PlayerS : MonoBehaviour
             }         
         }
     }
+
+    public void AttackCondition()
+    {
+        if (eventTrigger1||eventTrigger2||eventTrigger3) 
+        {
+            
+        }
+    }
+
+    public void Attack1_Done(int count)
+    {
+        Debug.Log(count);
+        eventTrigger1 = true;
+    }
+
+    public void Attack2_Done(int count)
+    {
+        Debug.Log(count);
+        eventTrigger2 = true;
+    }
+    public void Attack3_Done(int count)
+    {
+        Debug.Log(count);
+        eventTrigger3 = true;
+    }
+
+
     /// <summary>
     /// 以下是主角的喂猫行为-生成猫粮
     /// </summary>
@@ -395,6 +441,8 @@ public class PlayerS : MonoBehaviour
             OnCatFoodGenerated?.Invoke(objectB);
         }
     }
+
+    
 
     private void OnDrawGizmos()
     {

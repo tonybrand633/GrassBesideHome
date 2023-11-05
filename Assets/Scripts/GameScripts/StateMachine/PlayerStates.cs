@@ -15,6 +15,7 @@ public class IdleState : State<PlayerS>
     public override void Enter()
     {
         context.isGround = true;
+        context.attackCount = 0;
         Debug.Log("Enter Idle");
         context.jumpCount = 1;
         context.SetAnimationBool("isGround", true);
@@ -43,6 +44,7 @@ public class RunState : State<PlayerS>
         context.isGround = true;
         Debug.Log("Enter Run");
         context.jumpCount = 1;
+        context.attackCount = 0;
         context.SetAnimationBool("isGround", context.isGround);
         context.SetAnimationBool("isJump", context.isJumping);
     }
@@ -94,6 +96,9 @@ public class JumpState : State<PlayerS>
     }
 }
 
+/// <summary>
+/// Ö÷½ÇµôÂä×´Ì¬-·ÖÀëÁËJump
+/// </summary>
 public class FallState : State<PlayerS>
 {
     public FallState(PlayerS context) : base(context)
@@ -118,6 +123,7 @@ public class FallState : State<PlayerS>
     {
         context.isFall = false;
         context.isJumping = false;
+        //context.isAttacking = false;
         context.SetAnimationBool("isFall", context.isFall);
     }
 }
@@ -126,30 +132,124 @@ public class FallState : State<PlayerS>
 /// Ö÷½Ç¹¥»÷×´Ì¬
 /// </summary>
 
-public class AttackState : State<PlayerS>
+public class AttackState_01 : State<PlayerS>
 {
     float exitTime;
     AnimatorStateInfo attackStateInfo;
-    public AttackState(PlayerS context) : base(context)
+    
+
+
+    public AttackState_01(PlayerS context) : base(context)
     {
 
     }
 
     public override void Enter()
     {
-        Debug.Log("Enter Attack");
+        context.SetAniamtionTrigger("Attack_01");
+        context.isAttacking = true;
         context.canMoveByAttack = false;
-        context.SetAniamtionTrigger("Attack");
+        context.attackCount = 1;
+        Debug.Log("Enter Attack_01");        
     }
 
     public override void Update()
     {
-        Debug.Log("Attacking");          
+        Debug.Log("Attacking_01");
+        if (context.eventTrigger1)
+        {
+            context.isAttacking = false;
+            
+        }
+        else 
+        {
+            context.isAttacking = true;
+        }        
     }
 
     public override void Exit()
     {
+        context.eventTrigger1 = false;        
         context.canMoveByAttack = true;
+        context.lastAttckTime = -Mathf.Infinity;
+        Debug.Log("Exit Attack_01");
+    }
+
+    public class AttackState_02 : State<PlayerS>
+    {
+        public AttackState_02(PlayerS context) : base(context)
+        {
+
+        }
+
+        public override void Enter() 
+        {
+            context.attackCount = 2; 
+            Debug.Log("Enter Attack2");
+            context.canMoveByAttack = false;
+            context.SetAniamtionTrigger("Attack_02");
+        }
+
+        public override void Update() 
+        {
+            Debug.Log("Attacking02"); 
+            if (context.eventTrigger2)
+            {
+                context.isAttacking = false;
+
+            }
+            else
+            {
+                context.isAttacking = true;
+            }
+        }
+
+        public override void Exit()
+        {
+            context.canMoveByAttack = true;
+            context.eventTrigger1 = false;
+            context.eventTrigger2 = false;
+            context.lastAttckTime = -Mathf.Infinity;
+        }
+    }
+
+    public class AttackState_03 : State<PlayerS>
+    {
+        public AttackState_03(PlayerS context) : base(context)
+        {
+            
+        }
+
+        public override void Enter()
+        {
+            Debug.Log("Enter Attack3");
+            context.attackCount = 3;
+            context.canMoveByAttack = false;
+            context.SetAniamtionTrigger("Attack_03");
+        }
+
+        public override void Update()
+        {
+            Debug.Log("Attacking03");
+            if (context.eventTrigger3)
+            {
+                context.isAttacking = false;
+
+            }
+            else
+            {
+                context.isAttacking = true;
+            }
+        }
+
+        public override void Exit()
+        {
+            context.canMoveByAttack = true;
+            context.eventTrigger1 = false;
+            context.eventTrigger2 = false;
+            context.eventTrigger3 = false;
+            context.lastAttckTime = -Mathf.Infinity;
+        }
     }
 }
 

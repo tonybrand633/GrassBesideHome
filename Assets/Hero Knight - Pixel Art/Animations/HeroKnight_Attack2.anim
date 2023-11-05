@@ -7,7 +7,7 @@ AnimationClip:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: HeroKnight_Attack2
-  serializedVersion: 6
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -80,4 +80,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.35714287
+    functionName: Attack2_Done
+    data: 
+    objectReferenceParameter: {fileID: 720237191290858804, guid: dfb38a9f7cb2e2c45b2bac74b772d7a2, type: 3}
+    floatParameter: 0
+    intParameter: 2
+    messageOptions: 0
