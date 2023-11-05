@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static AttackState_01;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerS : MonoBehaviour
 {
@@ -159,7 +158,7 @@ public class PlayerS : MonoBehaviour
             canJump = false;
         }
 
-        if (yVelocity<0&&playerStateMachine.currentState!=fallState&&playerStateMachine.currentState!=idleState) 
+        if (yVelocity<0&&playerStateMachine.currentState!=fallState) 
         {
             //------进入坠落状态---------//
             playerStateMachine.TransitionState(fallState);
@@ -305,13 +304,13 @@ public class PlayerS : MonoBehaviour
 
         if ((groundHitL || groundHitR || groundHitCenter || groundHitCenterNextL || groundHitCenterNextR)&&detectGround)
         {
-            if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState&&!isAttacking)
+            if (Mathf.Abs(movement.x) > 0 && playerStateMachine.currentState != runState &&!isAttacking)
             {
                 //------进入跑动状态---------//
                 playerStateMachine.TransitionState(runState);
 
             }
-            else if (movement.x == 0 && playerStateMachine.currentState != idleState&&!isAttacking)
+            else if (movement.x == 0 && playerStateMachine.currentState != idleState && !isAttacking)
             {                                
                 //------进入待机状态---------//
                 playerStateMachine.TransitionState(idleState);

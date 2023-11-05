@@ -161,19 +161,30 @@ MonoBehaviour:
   groundDetectDis: 0.05
   wallDetectDis: 0.1
   attackStartTime: 0
-  attackIntervalNow: 0
-  attackInterval: 0.25
+  lastAttckTime: -Infinity
+  attackCoolDown: 0.15
+  timeSinceLastAttack: 0
   attackCount: 0
+  jumpCount: 1
   movement: {x: 0, y: 0, z: 0}
   catFood: {fileID: 7302565380919710088, guid: b6cb40ac4f49732449e9c57c6293b2bd, type: 3}
   anim: {fileID: 0}
   isWalkMode: 1
-  canMoveVelocity: 0
+  canMoveByHitWall: 0
+  isAttacking: 0
+  canMoveByAttack: 0
+  canJump: 0
   isJumping: 0
   isGround: 0
   isAttack: 0
+  isFall: 0
+  eventTrigger1: 0
+  eventTrigger2: 0
+  eventTrigger3: 0
+  currentState: 
   groundCheckOffset: 0.15
   groundCount: 0
+  detectGround: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 16384

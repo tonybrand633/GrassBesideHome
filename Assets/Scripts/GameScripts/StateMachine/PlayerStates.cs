@@ -35,11 +35,12 @@ public class RunState : State<PlayerS>
 {
     public RunState(PlayerS context) : base(context)
     {
-
+        
     }
 
     public override void Enter()
     {
+        context.isGround = true;
         context.ClearAttackSymbol();
         Debug.Log("Enter Run");
         context.jumpCount = 1;
@@ -107,7 +108,7 @@ public class FallState : State<PlayerS>
     {
         context.isFall = true;
         context.SetAniamtionValue("yVelocity", context.yVelocity);
-        context.SetAnimationBool("isGround", context.isGround);
+        //context.SetAnimationBool("isGround", context.isGround);
         context.SetAnimationBool("isFall", context.isFall);
         context.detectGround = true;
     }
