@@ -53,6 +53,7 @@ public class PlayerS : MonoBehaviour
     public bool eventTrigger1 = false;
     public bool eventTrigger2 = false;
     public bool eventTrigger3 = false;
+    public string currentState;
 
     //状态机
     public StateController<PlayerS> playerStateMachine;
@@ -125,6 +126,7 @@ public class PlayerS : MonoBehaviour
         DetectPlayerAround();
         //AttackCondition();
         playerStateMachine.Update();
+        currentState = playerStateMachine.currentState.ToString();
     }
     void FixedUpdate()
     {
@@ -189,7 +191,6 @@ public class PlayerS : MonoBehaviour
         {
             // 获取方向键的输入
             moveHorizontal = Input.GetAxisRaw("Horizontal");
-            //moveVertical = Input.GetAxisRaw("Vertical");
 
             // 创建移动向量
             movement = new Vector3(moveHorizontal, 0.0f, 0.0f).normalized;
@@ -262,14 +263,7 @@ public class PlayerS : MonoBehaviour
         if (isWalkMode&&canMoveByHitWall&&canMoveByAttack)
         {
             rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y);            
-        }
-        //else
-        //{
-        //    //跳跃模式加一个力之类的
-        //    //rb2d.velocity = new Vector2(movement.x * currentSpeed, rb2d.velocity.y + movement.y * currentSpeed);
-        //}
-        // 否则还是使用Transform来移动
-        //transform.position += movement * currentSpeed * Time.deltaTime;       
+        }            
     }
 
     /// <summary>
@@ -308,13 +302,6 @@ public class PlayerS : MonoBehaviour
             if (groundCheck[i]) groundCount++;
         }
 
-        //RaycastHit2D boxHit = Physics2D.BoxCast(new Vector2(bottom.x, bottom.y + 0.1f), new Vector2(colBounds.size.x, 0.1f), 0, Vector2.down, 0.1f,groundLayer);
-        //if (boxHit.collider!=null) 
-        //{
-        //    Debug.Log(boxHit.collider.gameObject.name);
-        //}
-
-
 
         if ((groundHitL || groundHitR || groundHitCenter || groundHitCenterNextL || groundHitCenterNextR)&&detectGround)
         {
@@ -339,13 +326,6 @@ public class PlayerS : MonoBehaviour
             //}                       
         }         
     }
-
-    //IEnumerator EnableNextFrame() 
-    //{
-    //    Debug.Log("We Did it");
-    //    yield return new WaitForSeconds(0.2f);
-    //    col.enabled = true;
-    //}
 
     void CheckForWall() 
     {
@@ -400,29 +380,35 @@ public class PlayerS : MonoBehaviour
         }
     }
 
-    public void AttackCondition()
-    {
-        if (eventTrigger1||eventTrigger2||eventTrigger3) 
-        {
-            
-        }
-    }
-
     public void Attack1_Done(int count)
-    {
-        Debug.Log(count);
-        eventTrigger1 = true;
+    {       
+        if (playerStateMachine.currentState == attackState_01|| playerStateMachine.currentState == attackState_02|| playerStateMachine.currentState == attackState_03) 
+        {
+            eventTrigger1 = true;
+        }        
     }
 
     public void Attack2_Done(int count)
     {
-        Debug.Log(count);
-        eventTrigger2 = true;
+        if (playerStateMachine.currentState == attackState_01 || playerStateMachine.currentState == attackState_02 || playerStateMachine.currentState == attackState_03)
+        {
+            eventTrigger2 = true;
+        }
     }
     public void Attack3_Done(int count)
     {
-        Debug.Log(count);
-        eventTrigger3 = true;
+        if (playerStateMachine.currentState == attackState_01 || playerStateMachine.currentState == attackState_02 || playerStateMachine.currentState == attackState_03)
+        {
+            eventTrigger3 = true;
+        }
+    }
+
+    public void ClearAttackSymbol() 
+    {
+        isAttacking = false;
+        eventTrigger1 = false;
+        eventTrigger2 = false;
+        eventTrigger3 = false;
     }
 
 
@@ -442,8 +428,7 @@ public class PlayerS : MonoBehaviour
         }
     }
 
-    
-
+   
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -457,7 +442,5 @@ public class PlayerS : MonoBehaviour
         Gizmos.DrawWireSphere(leftBottom, groundDetectDis);
         Gizmos.DrawWireSphere(new Vector2(bottom.x + groundCheckOffset,bottom.y), groundDetectDis);
         Gizmos.DrawWireSphere(new Vector2(bottom.x - groundCheckOffset, bottom.y), groundDetectDis);
-
-        //Gizmos.DrawRay(leftBottom, Vector2.down+rightBottom);
     }
 }

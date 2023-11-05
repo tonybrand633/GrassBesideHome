@@ -14,7 +14,7 @@ public class IdleState : State<PlayerS>
 
     public override void Enter()
     {
-        context.isGround = true;
+        context.ClearAttackSymbol();
         context.attackCount = 0;
         Debug.Log("Enter Idle");
         context.jumpCount = 1;
@@ -25,7 +25,6 @@ public class IdleState : State<PlayerS>
     public override void Update()
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
-        //Debug.Log("Idling");
     }
 }
 
@@ -41,7 +40,7 @@ public class RunState : State<PlayerS>
 
     public override void Enter()
     {
-        context.isGround = true;
+        context.ClearAttackSymbol();
         Debug.Log("Enter Run");
         context.jumpCount = 1;
         context.attackCount = 0;
@@ -52,15 +51,6 @@ public class RunState : State<PlayerS>
     public override void Update()
     {
         context.SetAniamtionValue("Speed", Mathf.Abs(context.movement.x));
-        //Debug.Log("Runing");
-        //if (context.groundCount < 2)
-        //{
-        //    context.col.enabled = false;
-        //}
-        //else
-        //{
-        //    context.col.enabled = true;
-        //}
     }
 }
 
@@ -76,6 +66,7 @@ public class JumpState : State<PlayerS>
 
     public override void Enter()
     {
+        context.ClearAttackSymbol();
         Debug.Log("Enter Jump");
         context.jumpCount--;
         context.isGround = false;
@@ -92,7 +83,7 @@ public class JumpState : State<PlayerS>
 
     public override void Exit() 
     {
-                
+        
     }
 }
 
@@ -108,6 +99,7 @@ public class FallState : State<PlayerS>
 
     public override void Enter() 
     {
+        context.ClearAttackSymbol();
         Debug.Log("Enter Fall");
     }
 
@@ -115,6 +107,7 @@ public class FallState : State<PlayerS>
     {
         context.isFall = true;
         context.SetAniamtionValue("yVelocity", context.yVelocity);
+        context.SetAnimationBool("isGround", context.isGround);
         context.SetAnimationBool("isFall", context.isFall);
         context.detectGround = true;
     }
@@ -123,7 +116,6 @@ public class FallState : State<PlayerS>
     {
         context.isFall = false;
         context.isJumping = false;
-        //context.isAttacking = false;
         context.SetAnimationBool("isFall", context.isFall);
     }
 }
@@ -155,7 +147,7 @@ public class AttackState_01 : State<PlayerS>
 
     public override void Update()
     {
-        Debug.Log("Attacking_01");
+        //Debug.Log("Attacking_01");
         if (context.eventTrigger1)
         {
             context.isAttacking = false;
@@ -169,7 +161,9 @@ public class AttackState_01 : State<PlayerS>
 
     public override void Exit()
     {
-        context.eventTrigger1 = false;        
+        context.eventTrigger1 = false;
+        context.eventTrigger2 = false;
+        context.eventTrigger3 = false;
         context.canMoveByAttack = true;
         context.lastAttckTime = -Mathf.Infinity;
         Debug.Log("Exit Attack_01");
@@ -188,11 +182,12 @@ public class AttackState_01 : State<PlayerS>
             Debug.Log("Enter Attack2");
             context.canMoveByAttack = false;
             context.SetAniamtionTrigger("Attack_02");
+
         }
 
         public override void Update() 
         {
-            Debug.Log("Attacking02"); 
+            //Debug.Log("Attacking02"); 
             if (context.eventTrigger2)
             {
                 context.isAttacking = false;
@@ -209,7 +204,9 @@ public class AttackState_01 : State<PlayerS>
             context.canMoveByAttack = true;
             context.eventTrigger1 = false;
             context.eventTrigger2 = false;
+            context.eventTrigger3 = false;
             context.lastAttckTime = -Mathf.Infinity;
+            Debug.Log("Exit Attack_02");
         }
     }
 
@@ -230,7 +227,7 @@ public class AttackState_01 : State<PlayerS>
 
         public override void Update()
         {
-            Debug.Log("Attacking03");
+            //Debug.Log("Attacking03");
             if (context.eventTrigger3)
             {
                 context.isAttacking = false;
@@ -249,6 +246,7 @@ public class AttackState_01 : State<PlayerS>
             context.eventTrigger2 = false;
             context.eventTrigger3 = false;
             context.lastAttckTime = -Mathf.Infinity;
+            Debug.Log("Exit Attack_03");
         }
     }
 }
