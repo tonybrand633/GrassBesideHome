@@ -16,19 +16,21 @@ public class PlayerS : MonoBehaviour
     public float yVelocity;
     public float groundDetectDis = 0.05f;
     public float wallDetectDis = 0.1f;
+    public int jumpCount = 1;
+
+    //攻击相关
+    [Header("攻击相关")]
     public float attackStartTime;
     public float lastAttckTime = -Mathf.Infinity;
     public float attackCoolDown = 0.25f;
     public float timeSinceLastAttack;
     public int attackCount;
-    public int jumpCount = 1;
     
-
-
-    //输入变量
-    [Header("输入变量")]
+    
+    
     float moveHorizontal;
     float moveVertical;
+    [Header("输入变量")]
     public Vector3 movement;
 
     //角色组件
@@ -63,7 +65,6 @@ public class PlayerS : MonoBehaviour
     AttackState_02 attackState_02;
     AttackState_03 attackState_03;
     FallState fallState;
-
 
     //事件
     public static event Action<GameObject> OnCatFoodGenerated;
@@ -242,8 +243,16 @@ public class PlayerS : MonoBehaviour
             //------进入攻击状态---------//
             if (lastAttckTime == -Mathf.Infinity && attackCount == 0)
             {
-                playerStateMachine.TransitionState(attackState_01);
-                lastAttckTime = Time.time;
+                if (timeSinceLastAttack != Mathf.Infinity && timeSinceLastAttack >= attackCoolDown)
+                {
+                    playerStateMachine.TransitionState(attackState_01);
+                    lastAttckTime = Time.time;
+                }
+                else 
+                {
+                    playerStateMachine.TransitionState(attackState_01);
+                    lastAttckTime = Time.time;
+                }          
             }
             else if (attackCount == 1 && timeSinceLastAttack >= attackCoolDown)
             {

@@ -1241,6 +1241,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 720237191290858800, guid: dfb38a9f7cb2e2c45b2bac74b772d7a2, type: 3}
+      propertyPath: attackCoolDown
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 720237191290858801, guid: dfb38a9f7cb2e2c45b2bac74b772d7a2, type: 3}
       propertyPath: m_RootOrder
       value: 4
