@@ -25,9 +25,12 @@ public class PlayerS : MonoBehaviour
     public float attackCoolDown = 0.25f;
     public float timeSinceLastAttack;
     public int attackCount;
-    
-    
-    
+    public bool eventTrigger1 = false;
+    public bool eventTrigger2 = false;
+    public bool eventTrigger3 = false;
+
+
+
     float moveHorizontal;
     float moveVertical;
     [Header("输入变量")]
@@ -51,9 +54,7 @@ public class PlayerS : MonoBehaviour
     public bool isGround;
     public bool isAttack;
     public bool isFall;
-    public bool eventTrigger1 = false;
-    public bool eventTrigger2 = false;
-    public bool eventTrigger3 = false;
+    
     public string currentState;
 
     //状态机
