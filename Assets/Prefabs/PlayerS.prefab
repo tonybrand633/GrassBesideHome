@@ -88,7 +88,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ad8348641ee93004396c14be844ea0b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,12 +160,15 @@ MonoBehaviour:
   yVelocity: 0
   groundDetectDis: 0.05
   wallDetectDis: 0.1
+  jumpCount: 1
   attackStartTime: 0
   lastAttckTime: -Infinity
-  attackCoolDown: 0.15
+  attackCoolDown: 0.2
   timeSinceLastAttack: 0
   attackCount: 0
-  jumpCount: 1
+  eventTrigger1: 0
+  eventTrigger2: 0
+  eventTrigger3: 0
   movement: {x: 0, y: 0, z: 0}
   catFood: {fileID: 7302565380919710088, guid: b6cb40ac4f49732449e9c57c6293b2bd, type: 3}
   anim: {fileID: 0}
@@ -178,9 +181,6 @@ MonoBehaviour:
   isGround: 0
   isAttack: 0
   isFall: 0
-  eventTrigger1: 0
-  eventTrigger2: 0
-  eventTrigger3: 0
   currentState: 
   groundCheckOffset: 0.15
   groundCount: 0

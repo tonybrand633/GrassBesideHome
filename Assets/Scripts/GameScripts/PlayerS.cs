@@ -238,7 +238,7 @@ public class PlayerS : MonoBehaviour
 
 
         //判断角色攻击，按下鼠标左键        
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0)&&playerStateMachine.currentState!=fallState) 
         {            
             timeSinceLastAttack = Time.time - lastAttckTime;
             //------进入攻击状态---------//

@@ -346,7 +346,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -358,7 +358,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
     maxTextureSize: 2048
@@ -370,7 +370,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2273,7 +2273,13 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: d0ba9f53a16c52041bb986fff7d9eee2, type: 3}
+      name: _SwordLight
+    - texture: {fileID: 2800000, guid: 9f30c9869be0835469a6567d9db74cbf, type: 3}
+      name: _SwordTrailLight
+    - texture: {fileID: 2800000, guid: d8b140f2bbbf9004986787e1976268ec, type: 3}
+      name: _ShieldLight
     nameFileIdTable:
       HeroKnight_72: 21300144
       HeroKnight_87: 21300174
@@ -2344,12 +2350,12 @@ TextureImporter:
       HeroKnight_89: 21300178
       HeroKnight_26: 21300052
       HeroKnight_27: 21300054
-      HeroKnight_30: 21300060
       HeroKnight_42: 21300084
+      HeroKnight_30: 21300060
       HeroKnight_10: 21300020
       HeroKnight_6: 21300012
-      HeroKnight_22: 21300044
       HeroKnight_54: 21300108
+      HeroKnight_22: 21300044
       HeroKnight_9: 21300018
       HeroKnight_57: 21300114
       HeroKnight_68: 21300136
